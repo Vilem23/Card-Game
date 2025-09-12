@@ -41,6 +41,12 @@
             overflow: hidden;
         }
 
+        .container.game-mode {
+            max-width: 1200px;
+            width: 95%;
+            padding: 32px;
+        }
+
         .container::before {
             content: '';
             position: absolute;
@@ -271,25 +277,16 @@
             transform: translateY(-2px) scale(1.05);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             border-color: rgba(255, 255, 255, 0.3);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
-        }
-
-        .copy-btn:active {
-            transform: translateY(-1px) scale(1.02);
         }
 
         .copy-btn.copied {
             background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
-            border-color: rgba(34, 197, 94, 0.3);
-            animation: copyBtnSuccess 0.6s ease;
+            animation: copySuccess 0.6s ease;
         }
 
-        @keyframes copyBtnSuccess {
+        @keyframes copySuccess {
             0% { transform: scale(1); }
-            50% { 
-                transform: scale(1.15); 
-                box-shadow: 0 8px 25px rgba(34, 197, 94, 0.4);
-            }
+            50% { transform: scale(1.15); }
             100% { transform: scale(1); }
         }
 
@@ -418,7 +415,466 @@
             transform: none;
         }
 
+        /* HP Bary */
+        .game-hud {
+            margin-bottom: 20px;
+        }
+
+        .hp-bars {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            gap: 20px;
+        }
+
+        .player-hp {
+            flex: 1;
+            text-align: center;
+        }
+
+        .hp-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hp-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 16px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 5px;
+        }
+
+        .hp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #22c55e 0%, #16a34a 100%);
+            transition: all 0.5s ease;
+            border-radius: 6px;
+        }
+
+        .hp-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .vs-divider {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fbbf24;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            padding: 0 15px;
+        }
+
+        .round-info {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+            padding: 12px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .round-info h3 {
+            color: #fbbf24;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .game-message {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+        }
+
+        /* NOVÝ 3-SLOUPCOVÝ LAYOUT */
+        .game-board {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 20px;
+            min-height: 400px;
+            align-items: start;
+        }
+
+        /* Boční panely pro hráče */
+        .player-side {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 15px;
+            border-radius: 16px;
+            min-height: 350px;
+        }
+
+        .player-side.my-side {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+
+        .player-side.opponent-side {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.03) 100%);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .player-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .player-title.my-title {
+            color: #22c55e;
+        }
+
+        .player-title.opponent-title {
+            color: #ef4444;
+        }
+
+        .player-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+        }
+
+        /* Střední panel - battle field */
+        .battle-field {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .battle-slots {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .battle-slot {
+            width: 120px;
+            height: 160px;
+            border: 3px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .battle-slot.my-slot {
+            border-color: rgba(34, 197, 94, 0.5);
+            background: rgba(34, 197, 94, 0.05);
+        }
+
+        .battle-slot.opponent-slot {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(239, 68, 68, 0.05);
+        }
+
+        .battle-slot.drag-over {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.1);
+            transform: scale(1.05);
+        }
+
+        .slot-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        .vs-symbol {
+            font-size: 24px;
+            font-weight: 800;
+            color: #fbbf24;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Karty v ruce */
+        .hand-card {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: grab;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hand-card:hover {
+            transform: translateX(5px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .hand-card:active {
+            cursor: grabbing;
+        }
+
+        .hand-card.dragging {
+            opacity: 0.7;
+            transform: rotate(5deg) scale(1.05);
+            z-index: 1000;
+        }
+
+        .hand-card.selected {
+            border-color: #22c55e;
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
+            transform: translateX(5px) scale(1.02);
+        }
+
+        .card-emoji {
+            font-size: 24px;
+            min-width: 32px;
+        }
+
+        .card-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .card-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 2px;
+        }
+
+        .card-damage {
+            font-size: 14px;
+            font-weight: 700;
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.15);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            display: inline-block;
+        }
+
+        /* Karta ve slotu */
+        .slot-card {
+            width: 110px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 8px;
+            backdrop-filter: blur(10px);
+            animation: cardPlace 0.4s ease-out;
+        }
+
+        @keyframes cardPlace {
+            from {
+                transform: scale(0.8) rotateY(180deg);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1) rotateY(0deg);
+                opacity: 1;
+            }
+        }
+
+        .slot-card .card-emoji {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .slot-card .card-name {
+            font-size: 11px;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        .slot-card .card-damage {
+            font-size: 16px;
+            padding: 3px 8px;
+        }
+
+        /* Karta protihráče (zadní strana) */
+        .back-card {
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(107, 114, 128, 0.4) 0%, rgba(75, 85, 99, 0.2) 100%);
+            border-radius: 10px;
+            border: 2px solid rgba(107, 114, 128, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-back {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        /* Akční tlačítka */
+        .game-actions {
+            margin-top: 20px;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        /* Battle výsledky a animace */
+        .round-result {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .battle-animation {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .battle-cards {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .battle-card {
+            width: 100px;
+            height: 140px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            animation: cardReveal 0.8s ease-out;
+        }
+
+        @keyframes cardReveal {
+            from {
+                transform: rotateY(180deg) scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: rotateY(0deg) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .battle-vs {
+            font-size: 28px;
+            font-weight: 800;
+            color: #fbbf24;
+            animation: pulse 1s infinite;
+        }
+
+        .battle-result {
+            font-size: 18px;
+            font-weight: 600;
+            color: white;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .game-over {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: gameOverAnimation 1s ease-out;
+        }
+
+        @keyframes gameOverAnimation {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .game-over h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .game-over p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+        }
+
         /* Responsive design */
+        @media (max-width: 900px) {
+            .game-board {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .player-side {
+                order: 2;
+            }
+            
+            .battle-field {
+                order: 1;
+            }
+            
+            .player-cards {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+            
+            .hand-card {
+                width: 120px;
+                height: 80px;
+                flex-direction: column;
+                text-align: center;
+                padding: 8px;
+            }
+            
+            .card-info {
+                text-align: center;
+            }
+        }
+
         @media (max-width: 600px) {
             .container {
                 padding: 32px 24px;
@@ -439,6 +895,49 @@
                 padding: 14px 24px;
                 min-width: 140px;
             }
+            
+            .battle-slots {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .battle-slot {
+                width: 100px;
+                height: 140px;
+            }
+
+            .game-board {
+                gap: 10px;
+            }
+            
+            .player-side {
+                padding: 10px;
+                min-height: auto;
+            }
+            
+            .player-cards {
+                gap: 6px;
+            }
+            
+            .hand-card {
+                width: 100px;
+                height: 70px;
+                padding: 6px;
+            }
+            
+            .card-emoji {
+                font-size: 18px;
+                min-width: 24px;
+            }
+            
+            .card-name {
+                font-size: 11px;
+            }
+            
+            .card-damage {
+                font-size: 12px;
+                padding: 1px 4px;
+            }
         }
     </style>
 </head>
@@ -447,7 +946,7 @@
         🔄 Připojuji se...
     </div>
     
-    <div class="container">
+    <div class="container" id="mainContainer">
         <h1>🎮 Lobby</h1>
         
         <!-- Hlavní obrazovka -->
@@ -521,17 +1020,92 @@
 
         <!-- Herní obrazovka -->
         <div class="screen" id="gameScreen">
-            <h2>🎉 Hra začíná!</h2>
-            <p>Všichni hráči jsou připojeni a připraveni.</p>
-            
-            <div class="player-list">
-                <h4>👥 Hráči ve hře</h4>
-                <div id="gamePlayers"></div>
+            <!-- HP Bary -->
+            <div class="game-hud">
+                <div class="hp-bars">
+                    <div class="player-hp" id="player1HP">
+                        <div class="hp-label">Hráč 1</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="hp-text">100/100</div>
+                    </div>
+                    <div class="vs-divider">VS</div>
+                    <div class="player-hp" id="player2HP">
+                        <div class="hp-label">Hráč 2</div>
+                        <div class="hp-bar">
+                            <div class="hp-fill" style="width: 100%"></div>
+                        </div>
+                        <div class="hp-text">100/100</div>
+                    </div>
+                </div>
+                <div class="round-info">
+                    <h3 id="roundNumber">Kolo 1</h3>
+                    <div id="gameMessage" class="game-message">Vyberte si kartu!</div>
+                </div>
             </div>
-            
-            <button onclick="backToLobby()" class="btn btn-secondary">
-                <span>🏠</span> Zpět do lobby
-            </button>
+
+            <!-- NOVÝ HERNÍ LAYOUT -->
+            <div class="game-board">
+                <!-- Levá strana -->
+                <div class="player-side" id="leftPlayer">
+                    <div class="player-title" id="leftPlayerTitle">👤 Hráč</div>
+                    <div class="player-cards" id="leftPlayerCards">
+                        <!-- Karty se načtou dynamicky -->
+                    </div>
+                </div>
+
+                <!-- Střední panel - battle field -->
+                <div class="battle-field">
+                    <div class="battle-slots">
+                        <div class="battle-slot" id="leftBattleSlot">
+                            <div class="slot-label">Levý hráč</div>
+                        </div>
+
+                        <div class="vs-symbol">⚔️</div>
+
+                        <div class="battle-slot" id="rightBattleSlot">
+                            <div class="slot-label">Pravý hráč</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pravá strana -->
+                <div class="player-side" id="rightPlayer">
+                    <div class="player-title" id="rightPlayerTitle">👤 Hráč</div>
+                    <div class="player-cards" id="rightPlayerCards">
+                        <!-- Karty se načtou dynamicky -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Akční tlačítka -->
+            <div class="game-actions">
+                <button id="readyBtn" class="btn btn-primary" onclick="playerReady()" disabled>
+                    <span>⚡</span> Připraven!
+                </button>
+            </div>
+
+            <!-- Výsledek kola -->
+            <div id="roundResult" class="round-result" style="display: none;">
+                <div class="battle-animation">
+                    <div class="battle-cards">
+                        <div class="battle-card" id="battleCard1"></div>
+                        <div class="battle-vs">VS</div>
+                        <div class="battle-card" id="battleCard2"></div>
+                    </div>
+                    <div class="battle-result" id="battleResultText"></div>
+                </div>
+            </div>
+
+            <!-- Konec hry -->
+            <div id="gameOver" class="game-over" style="display: none;">
+                <h2 id="gameOverTitle">Konec hry!</h2>
+                <p id="gameOverMessage"></p>
+                <button onclick="backToLobby()" class="btn btn-secondary">
+                    <span>🏠</span> Zpět do lobby
+                </button>
+            </div>
         </div>
     </div>
 
@@ -539,13 +1113,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.js"></script>
     
     <script>
-        // ===== GLOBÁLNÍ PROMĚNNÉ =====
+        // GLOBÁLNÍ PROMĚNNÉ
         let socket = null;
         let currentLobby = null;
         let playerName = '';
         let isHost = false;
+        let currentGameState = null;
+        let selectedCardId = null;
+        let draggedCard = null;
+        let amILeftPlayer = false; // true pokud jsem vlevo, false pokud vpravo
 
-        // ===== INICIALIZACE =====
+        // INICIALIZACE
         function init() {
             console.log('🚀 Inicializace aplikace...');
             
@@ -555,8 +1133,6 @@
                 showStatus('Socket.IO není dostupné. Zkus obnovit stránku.', 'error', 'mainStatus');
                 return;
             }
-            
-            console.log('✅ Socket.IO načteno, připojuji se k serveru...');
             
             try {
                 socket = io({
@@ -641,28 +1217,90 @@
                 showStatus(`${data.playerName} opustil lobby`, 'success');
             });
 
-            socket.on('gameStarted', () => {
-                console.log('🎮 Hra začíná!');
+            // Herní události
+            socket.on('gameStarted', (data) => {
+                console.log('🎮 Hra začíná!', data);
+                currentGameState = data.gameState;
+                
+                // Určení pozice - první hráč vlevo, druhý vpravo
+                const players = data.gameState.players;
+                const myIndex = players.findIndex(p => p.id === socket.id);
+                amILeftPlayer = myIndex === 0;
+                
+                console.log(`🎯 Jsem ${amILeftPlayer ? 'LEVÝ' : 'PRAVÝ'} hráč`);
+                
                 showGameScreen();
+                setupGameLayout();
+                updateGameHUD();
             });
 
+            socket.on('yourCards', (data) => {
+                console.log('🃏 Dostal jsi karty:', data);
+                if (data && data.cards && Array.isArray(data.cards)) {
+                    displayCards(data.cards);
+                    document.getElementById('roundNumber').textContent = `Kolo ${data.round || 1}`;
+                    document.getElementById('gameMessage').textContent = 'Vyberte kartu a přetáhněte ji do slotu!';
+                } else {
+                    console.error('Chybná data karet:', data);
+                }
+            });
+
+            socket.on('cardSelected', (data) => {
+                console.log('✅ Karta vybrána:', data);
+                document.getElementById('gameMessage').textContent = data.message;
+                document.getElementById('readyBtn').disabled = false;
+            });
+
+            socket.on('gameUpdate', (data) => {
+                console.log('📊 Herní update:', data);
+                currentGameState = data.gameState;
+                updateGameHUD();
+                
+                // Zobraz vybranou kartu protihráče v battle slotu
+                showOpponentSelectedCard(data.gameState);
+            });
+
+            socket.on('readyUpdate', (data) => {
+                console.log('⏳ Ready update:', data);
+                const message = data.waitingFor.length > 0 
+                    ? `Čekáme na: ${data.waitingFor.join(', ')}`
+                    : 'Všichni připraveni!';
+                document.getElementById('gameMessage').textContent = message;
+            });
+
+            socket.on('roundResult', (data) => {
+                console.log('⚔️ Výsledek kola:', data);
+                showRoundResult(data);
+            });
+
+            socket.on('nextRound', (data) => {
+                console.log('➡️ Další kolo:', data);
+                hideRoundResult();
+                document.getElementById('roundNumber').textContent = `Kolo ${data.round}`;
+                document.getElementById('gameMessage').textContent = data.message;
+                selectedCardId = null;
+                document.getElementById('readyBtn').disabled = true;
+                
+                // Vymaž battle sloty
+                document.getElementById('leftBattleSlot').innerHTML = '<div class="slot-label">Levý hráč</div>';
+                document.getElementById('rightBattleSlot').innerHTML = '<div class="slot-label">Pravý hráč</div>';
+            });
+
+            // Ostatní události (kick, error, atd.)
             socket.on('playerKicked', (data) => {
                 console.log('✅ Hráč byl úspěšně vyhozen:', data);
-                window.kickingInProgress = false; // Reset flag
+                window.kickingInProgress = false;
                 
                 if (data.kickedPlayer === playerName || data.playerName === playerName) {
-                    // Pokud jsem byl vyhozen já
                     showStatus('Byl jsi vyhozen z lobby!', 'error');
                     setTimeout(() => {
                         showMainScreen();
                     }, 2000);
                 } else {
-                    // Někdo jiný byl vyhozen
                     const kickedName = data.kickedPlayer || data.playerName;
                     showStatus(`${kickedName} byl vyhozen z lobby`, 'success');
                 }
                 
-                // Reset všech kick tlačítek
                 document.querySelectorAll('.kick-btn').forEach(btn => {
                     btn.disabled = false;
                     btn.textContent = 'Vyhodit';
@@ -672,10 +1310,9 @@
 
             socket.on('kickError', (data) => {
                 console.error('❌ Chyba při vyhazování:', data);
-                window.kickingInProgress = false; // Reset flag
+                window.kickingInProgress = false;
                 showStatus(data.message || 'Nepodařilo se vyhodit hráče', 'error');
                 
-                // Reset všech kick tlačítek
                 document.querySelectorAll('.kick-btn').forEach(btn => {
                     btn.disabled = false;
                     btn.textContent = 'Vyhodit';
@@ -690,13 +1327,21 @@
             });
         }
 
-        // ===== UI FUNKCE =====
+        // UI FUNKCE
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(screen => {
                 screen.classList.remove('active');
             });
             document.getElementById(screenId).classList.add('active');
             clearAllStatus();
+            
+            // Změň velikost kontejneru pro herní obrazovku
+            const container = document.getElementById('mainContainer');
+            if (screenId === 'gameScreen') {
+                container.classList.add('game-mode');
+            } else {
+                container.classList.remove('game-mode');
+            }
         }
 
         function showMainScreen() {
@@ -719,10 +1364,316 @@
 
         function showGameScreen() {
             showScreen('gameScreen');
-            updateGameDisplay();
+            
+            // Reset herních prvků
+            document.getElementById('gameOver').style.display = 'none';
+            document.getElementById('roundResult').style.display = 'none';
+            
+            selectedCardId = null;
         }
 
-        // ===== LOBBY FUNKCE =====
+        // HERNÍ LAYOUT
+        function setupGameLayout() {
+            const leftPlayer = document.getElementById('leftPlayer');
+            const rightPlayer = document.getElementById('rightPlayer');
+            const leftTitle = document.getElementById('leftPlayerTitle');
+            const rightTitle = document.getElementById('rightPlayerTitle');
+            const leftSlot = document.getElementById('leftBattleSlot');
+            const rightSlot = document.getElementById('rightBattleSlot');
+            
+            console.log('🔧 Nastavuji layout...', { amILeftPlayer });
+            
+            if (!currentGameState || !currentGameState.players || currentGameState.players.length < 2) {
+                console.log('❌ Nedostatek dat pro layout');
+                return;
+            }
+            
+            const players = currentGameState.players;
+            const me = players.find(p => p.id === socket.id);
+            const opponent = players.find(p => p.id !== socket.id);
+            
+            console.log('👥 Hráči:', { me: me?.name, opponent: opponent?.name });
+            
+            if (amILeftPlayer) {
+                // Já jsem vlevo
+                leftPlayer.classList.add('my-side');
+                leftPlayer.classList.remove('opponent-side');
+                rightPlayer.classList.add('opponent-side');
+                rightPlayer.classList.remove('my-side');
+                
+                leftTitle.className = 'player-title my-title';
+                leftTitle.textContent = `🃏 ${me.name} (vy)`;
+                rightTitle.className = 'player-title opponent-title';
+                rightTitle.textContent = `🎭 ${opponent.name}`;
+                
+                leftSlot.classList.add('my-slot');
+                rightSlot.classList.add('opponent-slot');
+            } else {
+                // Já jsem vpravo
+                rightPlayer.classList.add('my-side');
+                rightPlayer.classList.remove('opponent-side');
+                leftPlayer.classList.add('opponent-side');
+                leftPlayer.classList.remove('my-side');
+                
+                rightTitle.className = 'player-title my-title';
+                rightTitle.textContent = `🃏 ${me.name} (vy)`;
+                leftTitle.className = 'player-title opponent-title';
+                leftTitle.textContent = `🎭 ${opponent.name}`;
+                
+                rightSlot.classList.add('my-slot');
+                leftSlot.classList.add('opponent-slot');
+            }
+            
+            console.log('✅ Layout nastaven');
+        }
+
+        function displayCards(cards) {
+            console.log('🃏 Zobrazuji karty...', { cards, amILeftPlayer });
+            
+            // Kde zobrazit mé karty a protihráčovy karty
+            const myCardsContainer = amILeftPlayer ? 
+                document.getElementById('leftPlayerCards') : 
+                document.getElementById('rightPlayerCards');
+            
+            const opponentCardsContainer = amILeftPlayer ? 
+                document.getElementById('rightPlayerCards') : 
+                document.getElementById('leftPlayerCards');
+            
+            // Mé karty
+            myCardsContainer.innerHTML = '';
+            cards.forEach(card => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'hand-card';
+                cardElement.draggable = true;
+                cardElement.dataset.cardId = card.id;
+                cardElement.onclick = () => selectCard(cardElement, card);
+                
+                cardElement.innerHTML = `
+                    <div class="card-emoji">${card.emoji}</div>
+                    <div class="card-info">
+                        <div class="card-name">${card.name}</div>
+                        <div class="card-damage">${card.damage}</div>
+                    </div>
+                `;
+                
+                myCardsContainer.appendChild(cardElement);
+            });
+            
+            // Zadní strany karet protihráče
+            opponentCardsContainer.innerHTML = '';
+            for (let i = 0; i < cards.length; i++) {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'back-card';
+                cardElement.innerHTML = '<div class="card-back">🂠</div>';
+                opponentCardsContainer.appendChild(cardElement);
+            }
+            
+            console.log('✅ Karty zobrazeny');
+            
+            // Inicializace drag & drop
+            setTimeout(() => {
+                initDragAndDrop();
+            }, 100);
+        }
+
+        function selectCard(cardElement, card) {
+            console.log('🖱️ Výběr karty:', card);
+            
+            // Zrušení předchozího výběru
+            document.querySelectorAll('.hand-card').forEach(c => {
+                c.classList.remove('selected');
+            });
+
+            // Označení nové karty
+            cardElement.classList.add('selected');
+            
+            // Umístění do battle slotu
+            const myBattleSlot = amILeftPlayer ? 
+                document.getElementById('leftBattleSlot') : 
+                document.getElementById('rightBattleSlot');
+            
+            placeCardInSlot(cardElement, myBattleSlot, card);
+        }
+
+        function placeCardInSlot(cardElement, slot, card) {
+            console.log('🎯 Umísťuji kartu do slotu:', card);
+            
+            // Vytvoření karty ve slotu
+            const slotCard = document.createElement('div');
+            slotCard.className = 'slot-card';
+            slotCard.style.cursor = 'pointer'; // Indikace že je klikatelná
+            slotCard.dataset.cardId = card.id;
+            slotCard.onclick = () => unselectCard(slotCard, card);
+            slotCard.innerHTML = `
+                <div class="card-emoji">${card.emoji}</div>
+                <div class="card-name">${card.name}</div>
+                <div class="card-damage">${card.damage}</div>
+            `;
+
+            // Vymazání obsahu slotu a vložení karty
+            slot.innerHTML = '';
+            slot.appendChild(slotCard);
+
+            // Odebrání karty z ruky
+            cardElement.remove();
+
+            // Uložení vybrané karty a poslání na server
+            selectedCardId = card.id;
+            socket.emit('selectCard', { cardId: card.id });
+
+            console.log(`✅ Karta ${card.name} (${card.damage} damage) umístěna`);
+        }
+
+        function unselectCard(slotCard, card) {
+            console.log('🔙 Vracím kartu zpět do ruky:', card);
+            
+            // Najdi kontejner pro mé karty
+            const myCardsContainer = amILeftPlayer ? 
+                document.getElementById('leftPlayerCards') : 
+                document.getElementById('rightPlayerCards');
+            
+            // Vytvoř kartu zpět v ruce
+            const handCard = document.createElement('div');
+            handCard.className = 'hand-card';
+            handCard.draggable = true;
+            handCard.dataset.cardId = card.id;
+            handCard.onclick = () => selectCard(handCard, card);
+            handCard.innerHTML = `
+                <div class="card-emoji">${card.emoji}</div>
+                <div class="card-info">
+                    <div class="card-name">${card.name}</div>
+                    <div class="card-damage">${card.damage}</div>
+                </div>
+            `;
+            
+            // Přidej kartu zpět do ruky
+            myCardsContainer.appendChild(handCard);
+            
+            // Vymaž slot
+            const myBattleSlot = amILeftPlayer ? 
+                document.getElementById('leftBattleSlot') : 
+                document.getElementById('rightBattleSlot');
+            myBattleSlot.innerHTML = '<div class="slot-label">Vaše karta</div>';
+            
+            // Reset stavu
+            selectedCardId = null;
+            document.getElementById('readyBtn').disabled = true;
+            
+            // Pošli na server že už nemám vybranou kartu
+            socket.emit('unselectCard');
+            
+            // Znovu inicializuj drag & drop pro novou kartu
+            setTimeout(() => {
+                initDragAndDrop();
+            }, 100);
+            
+            console.log(`✅ Karta ${card.name} vrácena do ruky`);
+        }
+
+        function showOpponentSelectedCard(gameState) {
+            if (!gameState || !gameState.players) return;
+            
+            const opponent = gameState.players.find(p => p.id !== socket.id);
+            if (!opponent || !opponent.selectedCard || opponent.selectedCard.hidden) return;
+            
+            console.log('👁️ Zobrazuji kartu protihráče:', opponent.selectedCard);
+            
+            const opponentBattleSlot = amILeftPlayer ? 
+                document.getElementById('rightBattleSlot') : 
+                document.getElementById('leftBattleSlot');
+            
+            // Zobraz vybranou kartu protihráče
+            const card = opponent.selectedCard;
+            const slotCard = document.createElement('div');
+            slotCard.className = 'slot-card';
+            slotCard.innerHTML = `
+                <div class="card-emoji">${card.emoji}</div>
+                <div class="card-name">${card.name}</div>
+                <div class="card-damage">${card.damage}</div>
+            `;
+            
+            opponentBattleSlot.innerHTML = '';
+            opponentBattleSlot.appendChild(slotCard);
+            
+            console.log('✅ Karta protihráče zobrazena');
+        }
+
+        // DRAG & DROP
+        function initDragAndDrop() {
+            console.log('🖱️ Inicializuji drag & drop...');
+            
+            const cards = document.querySelectorAll('.hand-card');
+            const myBattleSlot = amILeftPlayer ? 
+                document.getElementById('leftBattleSlot') : 
+                document.getElementById('rightBattleSlot');
+
+            cards.forEach(card => {
+                card.addEventListener('dragstart', handleDragStart);
+                card.addEventListener('dragend', handleDragEnd);
+            });
+
+            if (myBattleSlot) {
+                myBattleSlot.addEventListener('dragover', handleDragOver);
+                myBattleSlot.addEventListener('drop', handleDrop);
+                myBattleSlot.addEventListener('dragleave', handleDragLeave);
+            }
+            
+            console.log('✅ Drag & Drop inicializován');
+        }
+
+        function handleDragStart(e) {
+            draggedCard = this;
+            this.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragEnd(e) {
+            this.classList.remove('dragging');
+            draggedCard = null;
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            this.classList.add('drag-over');
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragLeave(e) {
+            this.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+
+            this.classList.remove('drag-over');
+            
+            if (draggedCard && draggedCard !== this) {
+                const cardId = draggedCard.dataset.cardId;
+                // Najdi kartu v původních datech
+                const cardData = getCurrentCards().find(c => c.id === cardId);
+                if (cardData) {
+                    placeCardInSlot(draggedCard, this, cardData);
+                }
+            }
+            
+            return false;
+        }
+
+        function getCurrentCards() {
+            // Pomocná funkce pro získání aktuálních karet
+            if (currentGameState && currentGameState.players) {
+                const me = currentGameState.players.find(p => p.id === socket.id);
+                return me ? me.cards : [];
+            }
+            return [];
+        }
+
+        // LOBBY FUNKCE (zachované)
         function createLobby() {
             if (!getPlayerName()) return;
             
@@ -739,7 +1690,6 @@
             
             socket.emit('createLobby', { playerName });
             
-            // Timeout pro reset tlačítka
             setTimeout(() => {
                 resetButtons();
             }, 5000);
@@ -770,7 +1720,6 @@
                 playerName 
             });
             
-            // Timeout pro reset tlačítka
             setTimeout(() => {
                 resetButtons();
             }, 5000);
@@ -805,19 +1754,18 @@
                 return;
             }
             
-            // Prevence vícenásobného volání
             if (window.kickingInProgress) {
                 console.warn('❌ Vyhazování již probíhá...');
                 return;
             }
             
-            // Potvrzení před vyhozením
             if (!confirm(`Opravdu chceš vyhodit hráče ${playerName}?`)) {
                 return;
             }
             
+            console.log(`🦵 Vyhazuji hráče: ${playerName}`);
+            window.kickingInProgress = true;
             
-            // Najít a disable konkrétní tlačítko
             const kickButtons = document.querySelectorAll('.kick-btn');
             let targetButton = null;
             
@@ -831,13 +1779,11 @@
                 }
             });
             
-            // Poslat event serveru
             socket.emit('kickPlayer', { 
                 lobbyCode: currentLobby.code,
                 playerName: playerName 
             });
             
-            // Timeout pro reset tlačítka a flagu
             setTimeout(() => {
                 window.kickingInProgress = false;
                 if (targetButton) {
@@ -854,6 +1800,129 @@
             showLobbyScreen();
         }
 
+        function playerReady() {
+            if (selectedCardId) {
+                document.getElementById('readyBtn').disabled = true;
+                document.getElementById('readyBtn').innerHTML = '<span>⏳</span> Čekáme na ostatní...';
+                socket.emit('playerReady');
+            }
+        }
+
+        function updateGameHUD() {
+            if (!currentGameState) return;
+            
+            const players = currentGameState.players;
+            const me = players.find(p => p.id === socket.id);
+            const opponent = players.find(p => p.id !== socket.id);
+            
+            if (me && opponent) {
+                updateHPBar('player1HP', me.name, me.hp, 100);
+                updateHPBar('player2HP', opponent.name, opponent.hp, 100);
+            }
+        }
+
+        function updateHPBar(elementId, playerName, currentHP, maxHP) {
+            const playerHPElement = document.getElementById(elementId);
+            const hpPercentage = (currentHP / maxHP) * 100;
+            
+            playerHPElement.querySelector('.hp-label').textContent = playerName;
+            playerHPElement.querySelector('.hp-fill').style.width = `${hpPercentage}%`;
+            playerHPElement.querySelector('.hp-text').textContent = `${currentHP}/${maxHP}`;
+            
+            const hpFill = playerHPElement.querySelector('.hp-fill');
+            if (hpPercentage > 60) {
+                hpFill.style.background = 'linear-gradient(90deg, #22c55e 0%, #16a34a 100%)';
+            } else if (hpPercentage > 30) {
+                hpFill.style.background = 'linear-gradient(90deg, #f59e0b 0%, #d97706 100%)';
+            } else {
+                hpFill.style.background = 'linear-gradient(90deg, #ef4444 0%, #dc2626 100%)';
+            }
+        }
+
+        function showRoundResult(data) {
+            const roundResultEl = document.getElementById('roundResult');
+            const battleCard1 = document.getElementById('battleCard1');
+            const battleCard2 = document.getElementById('battleCard2');
+            const battleResultText = document.getElementById('battleResultText');
+            
+            battleCard1.innerHTML = `
+                <div style="background: ${data.player1.card.color}; color: white; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="font-size: 24px;">${data.player1.card.emoji}</div>
+                    <div style="font-size: 12px; font-weight: 600;">${data.player1.card.name}</div>
+                    <div style="font-size: 14px; font-weight: 700;">${data.player1.card.damage}</div>
+                </div>
+            `;
+            
+            battleCard2.innerHTML = `
+                <div style="background: ${data.player2.card.color}; color: white; border-radius: 8px; padding: 10px; text-align: center;">
+                    <div style="font-size: 24px;">${data.player2.card.emoji}</div>
+                    <div style="font-size: 12px; font-weight: 600;">${data.player2.card.name}</div>
+                    <div style="font-size: 14px; font-weight: 700;">${data.player2.card.damage}</div>
+                </div>
+            `;
+            
+            let resultText = '';
+            if (data.winner === 0) {
+                resultText = `Remíza! Oba hráči dostávají ${data.player1.damageTaken} damage.`;
+            } else if (data.winner === 1) {
+                resultText = `${data.player1.name} vyhrává! ${data.player2.name} dostává ${data.player2.damageTaken} damage.`;
+            } else {
+                resultText = `${data.player2.name} vyhrává! ${data.player1.name} dostává ${data.player1.damageTaken} damage.`;
+            }
+            
+            battleResultText.innerHTML = `
+                <div>${resultText}</div>
+                <div style="margin-top: 15px;">
+                    <div>${data.player1.name}: ${data.player1.hp} HP</div>
+                    <div>${data.player2.name}: ${data.player2.hp} HP</div>
+                </div>
+            `;
+            
+            roundResultEl.style.display = 'flex';
+            
+            updateHPBar('player1HP', data.player1.name, data.player1.hp, 100);
+            updateHPBar('player2HP', data.player2.name, data.player2.hp, 100);
+            
+            if (data.gameOver) {
+                setTimeout(() => {
+                    showGameOver(data.gameWinner);
+                }, 3000);
+            } else {
+                setTimeout(() => {
+                    hideRoundResult();
+                }, 3000);
+            }
+        }
+
+        function hideRoundResult() {
+            document.getElementById('roundResult').style.display = 'none';
+            
+            const readyBtn = document.getElementById('readyBtn');
+            readyBtn.disabled = true;
+            readyBtn.innerHTML = '<span>⚡</span> Připraven!';
+        }
+
+        function showGameOver(winner) {
+            const gameOverEl = document.getElementById('gameOver');
+            const gameOverTitle = document.getElementById('gameOverTitle');
+            const gameOverMessage = document.getElementById('gameOverMessage');
+            
+            if (winner === 'tie') {
+                gameOverTitle.textContent = 'Remíza!';
+                gameOverMessage.textContent = 'Oba hráči skončili se stejným HP!';
+            } else if (winner.id === socket.id) {
+                gameOverTitle.textContent = 'Vítězství! 🏆';
+                gameOverMessage.textContent = 'Gratulujeme, vyhráli jste!';
+            } else {
+                gameOverTitle.textContent = 'Prohra 😔';
+                gameOverMessage.textContent = `${winner.name} vyhrál!`;
+            }
+            
+            document.getElementById('roundResult').style.display = 'none';
+            
+            gameOverEl.style.display = 'block';
+        }
+
         // Funkce pro kopírování kódu lobby
         function copyLobbyCode() {
             if (!currentLobby || !currentLobby.code) {
@@ -864,9 +1933,7 @@
             const lobbyCode = currentLobby.code;
             const copyBtn = document.querySelector('.copy-btn');
 
-            // Pokus se kopírovat do schránky
             if (navigator.clipboard && window.isSecureContext) {
-                // Moderní způsob - Clipboard API
                 navigator.clipboard.writeText(lobbyCode).then(() => {
                     console.log('✅ Kód zkopírován do schránky:', lobbyCode);
                     copySuccess(copyBtn, lobbyCode);
@@ -875,12 +1942,10 @@
                     fallbackCopyText(lobbyCode, copyBtn);
                 });
             } else {
-                // Fallback pro starší prohlížeče
                 fallbackCopyText(lobbyCode, copyBtn);
             }
         }
 
-        // Vizuální feedback při úspěšném kopírování
         function copySuccess(copyBtn, lobbyCode) {
             copyBtn.classList.add('copied');
             copyBtn.textContent = '✓';
@@ -892,7 +1957,6 @@
             }, 1500);
         }
 
-        // Fallback funkce pro kopírování (starší prohlížeče)
         function fallbackCopyText(text, copyBtn) {
             const textArea = document.createElement('textarea');
             textArea.value = text;
@@ -916,15 +1980,13 @@
             } catch (err) {
                 console.error('❌ Chyba při fallback kopírování:', err);
                 showStatus('Kopírování není podporováno v tomto prohlížeči', 'error');
-                
-                // Jako poslední možnost - zobrazit alert s kódem
                 alert(`Kód lobby: ${text}\n\nZkopíruj tento kód ručně a pošli ho přátelům.`);
             }
             
             document.body.removeChild(textArea);
         }
 
-        // ===== POMOCNÉ FUNKCE =====
+        // POMOCNÉ FUNKCE
         function getPlayerName() {
             const nameInput = document.getElementById('playerName');
             playerName = nameInput.value.trim();
@@ -947,10 +2009,8 @@
         function updateLobbyDisplay() {
             if (!currentLobby) return;
             
-            // Zobrazit kód lobby
             document.getElementById('displayLobbyCode').textContent = currentLobby.code;
             
-            // Zobrazit seznam hráčů
             const playersListEl = document.getElementById('playersList');
             playersListEl.innerHTML = '';
             
@@ -979,7 +2039,6 @@
                 playersListEl.appendChild(playerEl);
             });
 
-            // Aktualizovat tlačítko start a status
             const startBtn = document.getElementById('startBtn');
             const gameStatusEl = document.getElementById('gameStatus');
             const playerCount = currentLobby.players.length;
@@ -999,25 +2058,6 @@
             }
         }
 
-        function updateGameDisplay() {
-            const gamePlayersEl = document.getElementById('gamePlayers');
-            gamePlayersEl.innerHTML = '';
-            
-            if (currentLobby && currentLobby.players) {
-                currentLobby.players.forEach(player => {
-                    const playerEl = document.createElement('div');
-                    playerEl.className = `player ${player.isHost ? 'host' : ''}`;
-                    playerEl.innerHTML = `
-                        <div>
-                            <span class="player-name">${player.name}</span>
-                        </div>
-                        <span class="player-badge">${player.isHost ? '👑' : '👤'}</span>
-                    `;
-                    gamePlayersEl.appendChild(playerEl);
-                });
-            }
-        }
-
         function updateConnectionStatus(status) {
             const statusEl = document.getElementById('connectionStatus');
             statusEl.className = `connection-status ${status}`;
@@ -1027,12 +2067,10 @@
         function showStatus(message, type = 'info', elementId = null) {
             console.log(`💬 Status: ${message} (${type})`);
             
-            // Najít správný status element
             let statusEl;
             if (elementId) {
                 statusEl = document.getElementById(elementId);
             } else {
-                // Najít aktivní obrazovku a její status element
                 const activeScreen = document.querySelector('.screen.active');
                 if (activeScreen) {
                     statusEl = activeScreen.querySelector('.status');
@@ -1043,7 +2081,6 @@
                 statusEl.textContent = message;
                 statusEl.className = `status status-${type} show`;
                 
-                // Auto-hide po 4 sekundách pro error a success
                 if (type === 'error' || type === 'success') {
                     setTimeout(() => {
                         statusEl.className = 'status';
@@ -1061,14 +2098,12 @@
         }
 
         function resetButtons() {
-            // Reset create button
             const createBtn = document.getElementById('createBtn');
             if (createBtn) {
                 createBtn.disabled = false;
                 createBtn.innerHTML = '<span>🚀</span> Vytvořit Lobby';
             }
             
-            // Reset join button
             const joinBtn = document.getElementById('joinBtn');
             if (joinBtn) {
                 joinBtn.disabled = false;
@@ -1076,9 +2111,8 @@
             }
         }
 
-        // ===== EVENT LISTENERY =====
+        // EVENT LISTENERY
         document.addEventListener('DOMContentLoaded', () => {
-            // Enter key handling
             document.getElementById('playerName').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') createLobby();
             });
@@ -1087,19 +2121,16 @@
                 if (e.key === 'Enter') joinLobby();
             });
 
-            // Auto číslice pouze pro lobby kód
             document.getElementById('lobbyCode').addEventListener('input', (e) => {
-                // Povolit pouze číslice
                 e.target.value = e.target.value.replace(/\D/g, '');
             });
 
-            // Auto focus na jméno
             setTimeout(() => {
                 document.getElementById('playerName').focus();
             }, 500);
         });
 
-        // ===== SPUŠTĚNÍ =====
+        // SPUŠTĚNÍ
         window.addEventListener('load', () => {
             console.log('🌐 Stránka načtena, spouštím init...');
             init();
