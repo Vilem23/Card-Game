@@ -8,24 +8,20 @@ const server = http.createServer(app);
 const io = socketIo(server);
 const PORT = process.env.PORT || 3000;
 
-// KONFIGURACE KARET - snadno editovatelná
+// KONFIGURACE KARET
 const CARD_CONFIG = {
-    // Základní nastavení
     PLAYER_START_HP: 100,
-    MAIN_CARDS_PER_HAND: 2, // 2 hlavní karty
-    SUPPORT_CARDS_PER_HAND: 2, // 2 support karty
-    GAMBLE_ATTEMPTS: 3, // Počet pokusů na gamble
+    MAIN_CARDS_PER_HAND: 2,
+    SUPPORT_CARDS_PER_HAND: 2,
+    GAMBLE_ATTEMPTS: 3,
     
-    // Counter systém - karta A > karta B (karta A má bonus proti kartě B)
     COUNTERS: {
         1: [3, 7],
         2: [4, 6],
     },
     
-    // Bonus damage za counter
     COUNTER_BONUS: 15,
     
-    // Definice hlavních karet
     MAIN_CARDS: [
         { 
             id: 1, 
@@ -37,7 +33,8 @@ const CARD_CONFIG = {
             gender: "male",
             ability: "Bonus demage do karet co jsou ženy.",
             description: "Má vlčí auru. Šuká přezrálé ženy.",
-            image: "alfa.png"
+            image: "alfa.png",
+            boost: ["vladimir", "tomas"]
         },
         {
             id: 2,
@@ -48,11 +45,7 @@ const CARD_CONFIG = {
             cardType: "mindset",
             gender: "male",
             ability: "Bonus damage do chudých karet.",
-            description: `
-                Má všechny peníze na světě. <br>
-                <span style="color:red">Countered: Jahody</span> <br>
-                <span style="color:green">Counting: Merunky</span>
-            `,
+            description: "Má všechny peníze na světě.",
             image: "chodicideti.png"
         },
         {
@@ -64,11 +57,7 @@ const CARD_CONFIG = {
             cardType: "mindset",
             gender: "male",
             ability: "Nezve Starosty na grilovačky.",
-            description: `
-                ocet, sul, sul, zahuštění, ovet, sul, ocet, šlehačka. <br>
-                <span style="color:red">Countered: Jahody</span> <br>
-                <span style="color:green">Counting: Merunky</span>
-            `,
+            description: "ocet, sul, sul, zahuštění, ovet, sul, ocet, šlehačka.",
             image: "frantisek.png"
         },
         {
@@ -80,23 +69,17 @@ const CARD_CONFIG = {
             cardType: "mindset",
             gender: "male",
             ability: "Reforma společnosti.",
-            description: `
-                Pokud je jeho spojencem státní instituce, zvyšuje svůj damage. <br>
-                <span style="color:red">Countered: Jahody</span> <br>
-                <span style="color:green">Counting: Merunky</span>
-            `,
+            description: "Pokud je jeho spojencem státní instituce, zvyšuje svůj damage.",
             image: "tomas.png"
         },
-        
     ],
     
-    // Definice support karet - jen bonusy, bez HP
     SUPPORT_CARDS: [
         {
             id: 101,
             name: "Golden labubu",
             type: "support",
-            bonusDamage: 0,
+            bonusDamage: 5,
             bonusHeal: 20,
             ability: "Zlato náboje zastaví.",
             description: "Doufám že chcípneš jestli tuto kartu nosíš.",
@@ -105,18 +88,14 @@ const CARD_CONFIG = {
     ]
 };
 
-
-// STORAGE
 const lobbies = new Map();
 const gameStates = new Map();
 
-// UTILITY FUNCTIONS
 const generateLobbyCode = () => {
     const code = Math.floor(1000 + Math.random() * 9000).toString();
     return lobbies.has(code) ? generateLobbyCode() : code;
 };
 
-// Opravená funkce pro rozdávání karet: 2 main + 2 support
 const getRandomCards = () => {
     const shuffledMainCards = [...CARD_CONFIG.MAIN_CARDS].sort(() => 0.5 - Math.random());
     const shuffledSupportCards = [...CARD_CONFIG.SUPPORT_CARDS].sort(() => 0.5 - Math.random());
@@ -129,7 +108,6 @@ const getRandomCards = () => {
     return selectedCards.sort(() => 0.5 - Math.random());
 };
 
-// OPRAVENÝ BATTLE SYSTÉM - karty mají HP a berou damage
 const calculateBattleResult = (player1, player2, gameState) => {
     const card1 = player1.selectedCard;
     const card2 = player2.selectedCard;
@@ -138,7 +116,6 @@ const calculateBattleResult = (player1, player2, gameState) => {
     
     if (!card1 || !card2) return null;
     
-    // Kopie karet s jejich aktuálním HP (pro výpočet)
     const battleCard1 = { ...card1, currentHp: card1.hp };
     const battleCard2 = { ...card2, currentHp: card2.hp };
     
@@ -147,20 +124,54 @@ const calculateBattleResult = (player1, player2, gameState) => {
     let healing1 = 0;
     let healing2 = 0;
     
-    // Counter bonus
+    // Counter system
     let player1Counter = false;
     let player2Counter = false;
+    let counterReason1 = '';
+    let counterReason2 = '';
     
     if (CARD_CONFIG.COUNTERS[card1.id]?.includes(card2.id)) {
         damage1 += CARD_CONFIG.COUNTER_BONUS;
         player1Counter = true;
+        counterReason1 = `${card1.name} má typ advantage proti ${card2.name}`;
     }
     if (CARD_CONFIG.COUNTERS[card2.id]?.includes(card1.id)) {
         damage2 += CARD_CONFIG.COUNTER_BONUS;
         player2Counter = true;
+        counterReason2 = `${card2.name} má typ advantage proti ${card1.name}`;
     }
     
-    // Support card bonusy
+    // Boost system
+    let boost1 = false;
+    let boost2 = false;
+    let boostReason1 = '';
+    let boostReason2 = '';
+    
+    if (card1.boost) {
+        const boostTargets = Array.isArray(card1.boost) ? card1.boost : [card1.boost];
+        const targetMatch = boostTargets.find(target => 
+            card2.name.toLowerCase().includes(target.toLowerCase())
+        );
+        if (targetMatch) {
+            damage1 += 10;
+            boost1 = true;
+            boostReason1 = `${card1.name} má boost proti "${targetMatch}"`;
+        }
+    }
+    
+    if (card2.boost) {
+        const boostTargets = Array.isArray(card2.boost) ? card2.boost : [card2.boost];
+        const targetMatch = boostTargets.find(target => 
+            card1.name.toLowerCase().includes(target.toLowerCase())
+        );
+        if (targetMatch) {
+            damage2 += 10;
+            boost2 = true;
+            boostReason2 = `${card2.name} má boost proti "${targetMatch}"`;
+        }
+    }
+    
+    // Support bonuses
     if (support1 && support1.type === 'support') {
         damage1 += support1.bonusDamage || 0;
         healing1 += support1.bonusHeal || 0;
@@ -171,8 +182,7 @@ const calculateBattleResult = (player1, player2, gameState) => {
         healing2 += support2.bonusHeal || 0;
     }
     
-    // OPRAVENÝ DAMAGE SYSTÉM
-    // Karta 1 útočí na kartu 2
+    // Calculate damage
     let damageToCard2 = Math.max(0, damage1);
     let overflowDamageToPlayer2 = 0;
     
@@ -183,7 +193,6 @@ const calculateBattleResult = (player1, player2, gameState) => {
         battleCard2.currentHp -= damageToCard2;
     }
     
-    // Karta 2 útočí na kartu 1
     let damageToCard1 = Math.max(0, damage2);
     let overflowDamageToPlayer1 = 0;
     
@@ -194,11 +203,11 @@ const calculateBattleResult = (player1, player2, gameState) => {
         battleCard1.currentHp -= damageToCard1;
     }
     
-    // Aplikuj overflow damage na hráče + healing
+    // Apply damage and healing to players
     player1.hp = Math.max(0, Math.min(100, player1.hp - overflowDamageToPlayer1 + healing1));
     player2.hp = Math.max(0, Math.min(100, player2.hp - overflowDamageToPlayer2 + healing2));
     
-    // Určení vítěze kola - kdo udělal více total damage
+    // Determine round winner
     let roundWinner = null;
     const totalDamage1 = damageToCard2 + overflowDamageToPlayer2;
     const totalDamage2 = damageToCard1 + overflowDamageToPlayer1;
@@ -232,7 +241,15 @@ const calculateBattleResult = (player1, player2, gameState) => {
         roundWinner,
         counters: {
             player1Counter,
-            player2Counter
+            player2Counter,
+            counterReason1,
+            counterReason2
+        },
+        boosts: {
+            player1Boost: boost1,
+            player2Boost: boost2,
+            boostReason1,
+            boostReason2
         },
         gameOver: player1.hp <= 0 || player2.hp <= 0
     };
@@ -247,6 +264,12 @@ const evaluateRound = (lobbyCode) => {
     
     if (!result) return;
     
+    // Send HP update immediately
+    io.to(lobbyCode).emit('hpUpdate', {
+        player1HP: player1.hp,
+        player2HP: player2.hp
+    });
+    
     io.to(lobbyCode).emit('roundResult', result);
     
     if (result.gameOver) {
@@ -255,13 +278,8 @@ const evaluateRound = (lobbyCode) => {
         else if (player2.hp > 0) gameWinner = player2;
         
         result.gameWinner = gameWinner;
-        // Nemazat gameState hned, nechat hráčům čas na uzavření
-        setTimeout(() => {
-            gameStates.delete(lobbyCode);
-        }, 30000); // 30 sekund
-    } else {
-        setTimeout(() => prepareNextRound(lobbyCode), 6000); // Delší čas na prohlédnutí výsledků
     }
+    // NO automatic next round - only manual
 };
 
 const prepareNextRound = (lobbyCode) => {
@@ -274,7 +292,7 @@ const prepareNextRound = (lobbyCode) => {
         player.selectedSupport = null;
         player.ready = false;
         player.cards = getRandomCards();
-        player.gamblesUsed = 0; // Reset gamble pokusů
+        player.gamblesUsed = 0;
     });
     
     io.to(lobbyCode).emit('nextRound', { 
@@ -361,31 +379,60 @@ io.on('connection', (socket) => {
     });
 
     socket.on('selectCard', (data) => {
+    const gameState = gameStates.get(socket.lobbyCode);
+    if (!gameState) return;
+    
+    const player = gameState.players.find(p => p.id === socket.id);
+    if (!player) return;
+    
+    const selectedCard = player.cards.find(c => c.id === data.cardId);
+    if (!selectedCard) return socket.emit('error', { message: 'Nemáš tuto kartu!' });
+    
+    if (data.isSupport) {
+        if (selectedCard.type !== 'support') {
+            return socket.emit('error', { message: 'Tuto kartu nelze použít jako support!' });
+        }
+        player.selectedSupport = selectedCard;
+        socket.emit('supportSelected', { message: `Support: ${selectedCard.name}`, card: selectedCard });
+    } else {
+        if (selectedCard.type !== 'main') {
+            return socket.emit('error', { message: 'Tuto kartu nelze použít jako hlavní!' });
+        }
+        player.selectedCard = selectedCard;
+        socket.emit('cardSelected', { message: `Hlavní: ${selectedCard.name}`, card: selectedCard });
+    }
+    
+    player.ready = false;
+    
+    // OPRAVENO: Pošli update všem hráčům (včetně toho kdo vybíral)
+    io.to(socket.lobbyCode).emit('gameUpdate', { 
+        gameState: {
+            ...gameState,
+            players: gameState.players.map(p => ({
+                ...p,
+                selectedCard: p.id === socket.id ? p.selectedCard : (p.selectedCard ? { hidden: true } : null),
+                selectedSupport: p.id === socket.id ? p.selectedSupport : (p.selectedSupport ? { hidden: true } : null)
+            }))
+        }
+    });
+});
+
+    socket.on('unselectCard', (data) => {
         const gameState = gameStates.get(socket.lobbyCode);
         if (!gameState) return;
         
         const player = gameState.players.find(p => p.id === socket.id);
         if (!player) return;
         
-        const selectedCard = player.cards.find(c => c.id === data.cardId);
-        if (!selectedCard) return socket.emit('error', { message: 'Nemáš tuto kartu!' });
-        
         if (data.isSupport) {
-            if (selectedCard.type !== 'support') {
-                return socket.emit('error', { message: 'Tuto kartu nelze použít jako support!' });
-            }
-            player.selectedSupport = selectedCard;
-            socket.emit('supportSelected', { message: `Support: ${selectedCard.name}`, card: selectedCard });
+            player.selectedSupport = null;
         } else {
-            if (selectedCard.type !== 'main') {
-                return socket.emit('error', { message: 'Tuto kartu nelze použít jako hlavní!' });
-            }
-            player.selectedCard = selectedCard;
-            socket.emit('cardSelected', { message: `Hlavní: ${selectedCard.name}`, card: selectedCard });
+            player.selectedCard = null;
         }
         
         player.ready = false;
         
+        // STEJNÝ FORMÁT JAKO V PŮVODNÍM KÓDU
         io.to(socket.lobbyCode).emit('gameUpdate', { 
             gameState: {
                 ...gameState,
@@ -398,7 +445,6 @@ io.on('connection', (socket) => {
         });
     });
 
-    // NOVÝ GAMBLE SYSTÉM
     socket.on('gambleCards', () => {
         const gameState = gameStates.get(socket.lobbyCode);
         if (!gameState) return;
@@ -410,13 +456,11 @@ io.on('connection', (socket) => {
             return socket.emit('error', { message: 'Nemáš další pokusy na gamble!' });
         }
         
-        // Reset vybraných karet
         player.selectedCard = null;
         player.selectedSupport = null;
         player.ready = false;
         player.gamblesUsed++;
         
-        // Nové karty
         player.cards = getRandomCards();
         
         io.to(player.id).emit('yourCards', { 
@@ -447,6 +491,17 @@ io.on('connection', (socket) => {
         } else {
             evaluateRound(socket.lobbyCode);
         }
+    });
+
+    // MANUAL next round request
+    socket.on('requestNextRound', () => {
+        const gameState = gameStates.get(socket.lobbyCode);
+        if (!gameState) return;
+        
+        const players = gameState.players;
+        if (players.some(p => p.hp <= 0)) return; // Game is over
+        
+        prepareNextRound(socket.lobbyCode);
     });
 
     socket.on('leaveLobby', () => {
@@ -496,18 +551,43 @@ io.on('connection', (socket) => {
             }
         }
     });
+    socket.on('unselectCard', (data) => {
+        const gameState = gameStates.get(socket.lobbyCode);
+        if (!gameState) return;
+        
+        const player = gameState.players.find(p => p.id === socket.id);
+        if (!player) return;
+        
+        if (data.isSupport) {
+            player.selectedSupport = null;
+            socket.emit('supportSelected', { message: 'Support karta oddelána', card: null });
+        } else {
+            player.selectedCard = null;
+            socket.emit('cardSelected', { message: 'Hlavní karta oddelána', card: null });
+        }
+        
+        player.ready = false;
+        
+        // DŮLEŽITÉ: Pošli update všem hráčům
+        io.to(socket.lobbyCode).emit('gameUpdate', { 
+            gameState: {
+                ...gameState,
+                players: gameState.players.map(p => ({
+                    ...p,
+                    selectedCard: p.id === socket.id ? p.selectedCard : (p.selectedCard ? { hidden: true } : null),
+                    selectedSupport: p.id === socket.id ? p.selectedSupport : (p.selectedSupport ? { hidden: true } : null)
+                }))
+            }
+    });
+});
 });
 
-// SERVE STATIC FILES
 app.use(express.static(path.join(__dirname, 'public')));
 
-// START SERVER
 server.listen(PORT, () => {
     console.log(`Server běží na portu ${PORT}`);
     console.log(`Otevři http://localhost:${PORT}`);
     console.log(`Balíček obsahuje ${CARD_CONFIG.MAIN_CARDS.length} hlavních karet a ${CARD_CONFIG.SUPPORT_CARDS.length} support karet`);
-    console.log(`Hráči dostávají ${CARD_CONFIG.MAIN_CARDS_PER_HAND} hlavních a ${CARD_CONFIG.SUPPORT_CARDS_PER_HAND} support karet`);
-    console.log('Konfigurace v CARD_CONFIG objektu');
 });
 
 process.on('SIGTERM', () => {

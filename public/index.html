@@ -39,15 +39,79 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
+            font-size: 16px; /* Větší základní font */
+        }
+
+        /* TMAVÉ SCROLLBARY */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.3), rgba(139, 92, 246, 0.2));
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 0 0 8px rgba(0, 212, 255, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb:active {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(139, 92, 246, 0.3));
+            border-color: rgba(0, 212, 255, 0.4);
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* SPECIÁLNÍ SCROLLBARY PRO RŮZNÉ OBLASTI */
+        .cards-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(0, 212, 255, 0.1));
+            border-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .cards-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.4), rgba(0, 212, 255, 0.3));
+            border-color: rgba(0, 212, 255, 0.4);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+
+        .result-container::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+            border-color: rgba(255, 215, 0, 0.2);
+        }
+
+        .result-container::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.4), rgba(255, 215, 0, 0.3));
+            border-color: rgba(255, 215, 0, 0.4);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        /* FIREFOX SCROLLBARY */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.1) rgba(0, 0, 0, 0.3);
         }
 
         .connection-status {
             position: fixed;
             top: 20px;
             right: 20px;
-            padding: 8px 16px;
+            padding: 10px 18px; /* Větší padding */
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 14px; /* Větší font */
             font-weight: 600;
             background: var(--glass-bg);
             backdrop-filter: blur(10px);
@@ -88,23 +152,23 @@
             border-radius: 24px;
             border: 1px solid var(--glass-border);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 500px;
+            padding: 50px; /* Větší padding */
+            max-width: 600px; /* Větší wrapper */
             width: 100%;
             text-align: center;
             transition: var(--transition);
         }
 
         .main-wrapper.game-mode {
-            max-width: 1500px;
-            width: 95%;
-            height: 95vh;
-            padding: 15px;
+            max-width: 1600px; /* Větší game wrapper */
+            width: 96%;
+            height: 96vh;
+            padding: 20px; /* Větší padding */
             overflow: hidden;
         }
 
         .app-title {
-            font-size: 3rem;
+            font-size: 3.5rem; /* Větší title */
             font-weight: 900;
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             -webkit-background-clip: text;
@@ -135,20 +199,20 @@
 
         .form-label {
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 12px; /* Větší margin */
             font-weight: 600;
-            font-size: 14px;
+            font-size: 16px; /* Větší font */
             color: var(--text-secondary);
         }
 
         .form-input {
             width: 100%;
-            padding: 16px 20px;
+            padding: 18px 24px; /* Větší padding */
             border: 2px solid var(--glass-border);
             border-radius: 12px;
             background: rgba(255, 255, 255, 0.03);
             color: var(--text-primary);
-            font-size: 16px;
+            font-size: 18px; /* Větší font */
             font-weight: 500;
             transition: var(--transition);
             backdrop-filter: blur(10px);
@@ -170,17 +234,17 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 16px 32px;
+            gap: 12px; /* Větší gap */
+            padding: 18px 36px; /* Větší padding */
             border: none;
             border-radius: 12px;
-            font-size: 15px;
+            font-size: 16px; /* Větší font */
             font-weight: 600;
             cursor: pointer;
             transition: var(--transition);
             text-decoration: none;
-            margin: 8px;
-            min-width: 180px;
+            margin: 10px; /* Větší margin */
+            min-width: 200px; /* Větší min-width */
             position: relative;
             overflow: hidden;
         }
@@ -209,7 +273,7 @@
         .btn-gamble {
             background: linear-gradient(135deg, var(--accent-gold), var(--warning));
             color: black;
-            min-width: 140px;
+            min-width: 160px; /* Větší min-width */
         }
 
         .btn-back {
@@ -220,14 +284,14 @@
         .btn-close {
             background: linear-gradient(135deg, var(--error), #dc2626);
             color: white;
-            min-width: 120px;
+            min-width: 140px; /* Větší min-width */
         }
 
         .status-message {
-            margin: 20px 0;
-            padding: 16px 20px;
+            margin: 25px 0; /* Větší margin */
+            padding: 18px 24px; /* Větší padding */
             border-radius: 12px;
-            font-size: 14px;
+            font-size: 16px; /* Větší font */
             font-weight: 500;
             backdrop-filter: blur(10px);
             display: none;
@@ -264,35 +328,36 @@
 
         .lobby-code-display {
             background: var(--glass-bg);
-            padding: 30px;
+            padding: 35px; /* Větší padding */
             border-radius: 16px;
-            margin: 30px 0;
+            margin: 35px 0; /* Větší margin */
             border: 1px solid var(--glass-border);
         }
 
         .lobby-code {
-            font-size: 4rem;
+            font-size: 4.5rem; /* Větší font */
             font-weight: 900;
             color: var(--accent-gold);
-            letter-spacing: 12px;
+            letter-spacing: 14px; /* Větší letter-spacing */
             font-family: 'Monaco', monospace;
             text-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
         }
 
         .player-list {
-            margin: 30px 0;
+            margin: 35px 0; /* Větší margin */
         }
 
         .player-item {
             background: var(--glass-bg);
-            padding: 16px 20px;
-            margin: 10px 0;
+            padding: 18px 24px; /* Větší padding */
+            margin: 12px 0; /* Větší margin */
             border-radius: 12px;
             border: 1px solid var(--glass-border);
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: var(--transition);
+            font-size: 16px; /* Větší font */
         }
 
         .player-item.host {
@@ -305,14 +370,14 @@
             height: 100%;
             display: grid;
             grid-template-rows: auto 1fr auto;
-            gap: 10px;
+            gap: 15px; /* Větší gap */
         }
 
         .game-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 20px;
+            padding: 15px 25px; /* Větší padding */
             background: var(--glass-bg);
             border-radius: 12px;
             border: 1px solid var(--glass-border);
@@ -321,14 +386,14 @@
         .hp-display {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px; /* Větší gap */
         }
 
         .hp-bar {
-            width: 120px;
-            height: 8px;
+            width: 140px; /* Větší šířka */
+            height: 10px; /* Větší výška */
             background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
+            border-radius: 5px; /* Větší border-radius */
             overflow: hidden;
             border: 1px solid var(--glass-border);
         }
@@ -337,13 +402,13 @@
             height: 100%;
             background: linear-gradient(90deg, var(--success), #22c55e);
             transition: var(--transition);
-            border-radius: 3px;
+            border-radius: 4px; /* Větší border-radius */
         }
 
         .game-board {
             display: grid;
-            grid-template-columns: 300px 1fr 300px;
-            gap: 15px;
+            grid-template-columns: 320px 1fr 320px; /* Větší sloupce */
+            gap: 18px; /* Větší gap */
             height: 100%;
             align-items: start;
             overflow: hidden;
@@ -353,7 +418,7 @@
             background: var(--glass-bg);
             border-radius: 12px;
             border: 1px solid var(--glass-border);
-            padding: 12px;
+            padding: 15px; /* Větší padding */
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -371,11 +436,11 @@
         }
 
         .area-title {
-            font-size: 13px;
+            font-size: 15px; /* Větší font */
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 15px; /* Větší margin */
             text-align: center;
-            padding: 6px;
+            padding: 8px; /* Větší padding */
             border-radius: 6px;
         }
 
@@ -389,52 +454,71 @@
             color: var(--error);
         }
 
+        /* ABSOLUTNĚ FIXNÍ VELIKOST KONTEJNERU - OPRAVA PROBLÉMU 1 */
         .cards-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            flex: 1;
-            align-items: start;
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+            height: 450px;
+            width: 290px;
+            max-height: 450px;
+            min-height: 450px;
+            max-width: 290px;
+            min-width: 290px;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 3px;
-            max-height: calc(100vh - 280px);
+            padding: 5px;
+            flex-shrink: 0;
+            flex-grow: 0;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
         }
 
         .cards-section {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px; /* Větší gap */
             align-items: center;
+            height: 430px;
+            width: 135px;
+            min-width: 135px;
+            max-width: 135px;
+            min-height: 430px;
+            max-height: 430px;
+            flex-shrink: 0;
+            flex-grow: 0;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 8px;
+            padding: 10px; /* Větší padding */
         }
 
         .cards-section-title {
-            font-size: 10px;
+            font-size: 12px; /* Větší font */
             font-weight: 600;
             color: var(--text-secondary);
-            margin-bottom: 4px;
+            margin-bottom: 6px; /* Větší margin */
             text-transform: uppercase;
         }
 
-        /* BATTLE ZONE S DVĚMA SLOTY */
+        /* BATTLE ZONE */
         .battle-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 18px; /* Větší gap */
+            padding: 18px; /* Větší padding */
         }
 
         .battle-row {
             display: flex;
             align-items: center;
-            gap: 25px;
+            gap: 30px; /* Větší gap */
         }
 
         .battle-slot {
-            width: calc(var(--card-width) + 10px);
-            height: calc(var(--card-height) + 10px);
+            width: calc(var(--card-width) + 12px); /* Větší */
+            height: calc(var(--card-height) + 12px); /* Větší */
             border: 2px dashed rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             display: flex;
@@ -443,15 +527,15 @@
             background: rgba(255, 255, 255, 0.02);
             transition: var(--transition);
             position: relative;
-            padding: 5px;
+            padding: 6px; /* Větší padding */
         }
 
         .support-slot {
-            width: calc(var(--support-card-width) + 8px);
-            height: calc(var(--support-card-height) + 8px);
+            width: calc(var(--support-card-width) + 10px); /* Větší */
+            height: calc(var(--support-card-height) + 10px); /* Větší */
             border: 2px dashed var(--accent-orange);
             background: rgba(255, 107, 53, 0.05);
-            padding: 4px;
+            padding: 5px; /* Větší padding */
         }
 
         .battle-slot.my-slot {
@@ -465,15 +549,15 @@
         }
 
         .slot-placeholder {
-            font-size: 10px;
+            font-size: 12px; /* Větší font */
             color: rgba(255, 255, 255, 0.5);
             text-align: center;
             font-weight: 600;
-            line-height: 1.2;
+            line-height: 1.3; /* Větší line-height */
         }
 
         .vs-indicator {
-            font-size: 20px;
+            font-size: 24px; /* Větší font */
             font-weight: 900;
             color: var(--accent-gold);
             text-shadow: 0 4px 20px rgba(255, 215, 0, 0.4);
@@ -489,7 +573,7 @@
             display: flex;
             justify-content: space-between;
             width: 100%;
-            font-size: 11px;
+            font-size: 13px; /* Větší font */
             color: var(--text-secondary);
             font-weight: 600;
         }
@@ -508,7 +592,7 @@
             box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
             border: 2px solid rgba(255, 255, 255, 0.2);
             overflow: hidden;
-            margin: 4px 0;
+            margin: 5px 0; /* Větší margin */
         }
 
         .support-card {
@@ -565,43 +649,43 @@
             bottom: 0;
             left: 0;
             right: 0;
-            padding: 12px;
+            padding: 14px; /* Větší padding */
             z-index: 2;
         }
 
         .support-card .card-content {
-            padding: 8px;
+            padding: 10px; /* Větší padding */
         }
 
         .card-name {
-            font-size: 12px;
+            font-size: 13px; /* Větší font */
             font-weight: 700;
             color: white;
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
-            margin-bottom: 6px;
+            margin-bottom: 8px; /* Větší margin */
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            line-height: 1.1;
+            line-height: 1.2; /* Větší line-height */
         }
 
         .support-card .card-name {
-            font-size: 9px;
-            margin-bottom: 4px;
+            font-size: 10px; /* Větší font */
+            margin-bottom: 5px; /* Větší margin */
         }
 
         .card-stats {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 4px;
+            gap: 5px; /* Větší gap */
         }
 
         .card-damage {
             background: linear-gradient(135deg, var(--error), #dc2626);
             color: white;
-            padding: 3px 6px;
+            padding: 4px 8px; /* Větší padding */
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px; /* Větší font */
             font-weight: 800;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -610,9 +694,9 @@
         .card-hp {
             background: linear-gradient(135deg, var(--success), #059669);
             color: white;
-            padding: 3px 6px;
+            padding: 4px 8px; /* Větší padding */
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px; /* Větší font */
             font-weight: 800;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -621,9 +705,9 @@
         .card-bonus {
             background: linear-gradient(135deg, var(--accent-gold), #f59e0b);
             color: white;
-            padding: 3px 6px;
+            padding: 4px 8px; /* Větší padding */
             border-radius: 6px;
-            font-size: 11px;
+            font-size: 12px; /* Větší font */
             font-weight: 800;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -632,8 +716,8 @@
         .support-card .card-damage,
         .support-card .card-hp,
         .support-card .card-bonus {
-            padding: 2px 4px;
-            font-size: 9px;
+            padding: 3px 6px; /* Větší padding */
+            font-size: 10px; /* Větší font */
         }
 
         .enemy-card {
@@ -673,25 +757,25 @@
         }
 
         .enemy-card-icon {
-            font-size: 24px;
+            font-size: 28px; /* Větší font */
             color: rgba(255, 255, 255, 0.4);
         }
 
-        /* TOOLTIP SYSTEM */
+        /* VYLEPŠENÝ TOOLTIP SYSTEM S VĚTŠÍMI TEXTY */
         .card-tooltip {
             position: fixed;
             z-index: 10000;
             background: rgba(0, 0, 0, 0.95);
             color: white;
-            padding: 16px;
-            border-radius: 10px;
+            padding: 20px; /* Větší padding */
+            border-radius: 12px; /* Větší border-radius */
             border: 1px solid var(--glass-border);
             backdrop-filter: blur(20px);
-            max-width: 300px;
+            max-width: 380px; /* Větší max-width */
             opacity: 0;
             pointer-events: none;
             transform: translate(-50%, -100%);
-            margin-top: -8px;
+            margin-top: -10px; /* Větší margin */
             transition: none;
         }
 
@@ -703,38 +787,38 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 6px;
+            margin-bottom: 15px; /* Větší margin */
+            padding-bottom: 8px; /* Větší padding */
             border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .tooltip-name {
-            font-size: 14px;
+            font-size: 16px; /* Větší font */
             font-weight: 700;
             color: var(--accent-gold);
         }
 
         .tooltip-type {
-            font-size: 10px;
+            font-size: 12px; /* Větší font */
             background: var(--accent-purple);
-            padding: 2px 6px;
-            border-radius: 3px;
+            padding: 3px 8px; /* Větší padding */
+            border-radius: 4px; /* Větší border-radius */
             font-weight: 600;
         }
 
         .tooltip-stats {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin: 10px 0;
+            gap: 10px; /* Větší gap */
+            margin: 15px 0; /* Větší margin */
         }
 
         .tooltip-stat {
             text-align: center;
-            padding: 6px;
-            border-radius: 5px;
+            padding: 8px; /* Větší padding */
+            border-radius: 6px; /* Větší border-radius */
             font-weight: 600;
-            font-size: 12px;
+            font-size: 14px; /* Větší font */
         }
 
         .tooltip-stat.damage {
@@ -754,44 +838,104 @@
 
         .tooltip-description {
             color: var(--text-secondary);
-            font-size: 11px;
-            line-height: 1.3;
-            margin: 10px 0;
+            font-size: 13px; /* Větší font */
+            line-height: 1.4; /* Větší line-height */
+            margin: 15px 0; /* Větší margin */
             font-style: italic;
         }
 
         .tooltip-ability {
             background: rgba(139, 92, 246, 0.1);
             border: 1px solid var(--accent-purple);
-            border-radius: 6px;
-            padding: 8px;
-            margin-top: 10px;
+            border-radius: 8px; /* Větší border-radius */
+            padding: 12px; /* Větší padding */
+            margin-top: 15px; /* Větší margin */
         }
 
         .tooltip-ability-title {
-            font-size: 10px;
+            font-size: 12px; /* Větší font */
             font-weight: 600;
             color: var(--accent-purple);
-            margin-bottom: 3px;
+            margin-bottom: 5px; /* Větší margin */
         }
 
         .tooltip-ability-text {
-            font-size: 11px;
-            line-height: 1.2;
+            font-size: 13px; /* Větší font */
+            line-height: 1.3; /* Větší line-height */
+            color: white;
+        }
+
+        /* NOVÁ OKNA PRO COUNTERED/COUNTING */
+        .tooltip-counters {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--accent-gold);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+
+        .tooltip-counters-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 8px;
+        }
+
+        .counter-item {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 6px;
+            padding: 8px;
+            margin: 6px 0;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        .counter-item.countered {
+            border-color: var(--error);
+            background: rgba(239, 68, 68, 0.05);
+            color: #ff9999;
+        }
+
+        .counter-item.counting {
+            border-color: var(--success);
+            background: rgba(16, 185, 129, 0.05);
+            color: #99ffcc;
+        }
+
+        /* BOOST INFO V TOOLTIPECH */
+        .tooltip-boost {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--accent-purple);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 15px;
+        }
+
+        .tooltip-boost-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent-purple);
+            margin-bottom: 5px;
+        }
+
+        .tooltip-boost-text {
+            font-size: 13px;
+            line-height: 1.3;
             color: white;
         }
 
         .game-actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            padding: 8px;
+            gap: 15px; /* Větší gap */
+            padding: 12px; /* Větší padding */
         }
 
         .game-actions .btn {
-            padding: 10px 20px;
-            font-size: 13px;
-            min-width: 140px;
+            padding: 12px 24px; /* Větší padding */
+            font-size: 15px; /* Větší font */
+            min-width: 160px; /* Větší min-width */
         }
 
         /* GAMBLE INFO */
@@ -799,22 +943,22 @@
             background: rgba(255, 215, 0, 0.1);
             border: 1px solid var(--accent-gold);
             border-radius: 8px;
-            padding: 8px;
-            margin: 8px 0;
+            padding: 10px; /* Větší padding */
+            margin: 10px 0; /* Větší margin */
             text-align: center;
-            font-size: 11px;
+            font-size: 13px; /* Větší font */
             color: var(--accent-gold);
             font-weight: 600;
         }
 
-        /* CUTSCENE PRO VÝSLEDKY */
+        /* ROUND RESULT OVERLAY - ŽÁDNÉ AUTO HIDE */
         .round-result-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             display: none;
             align-items: center;
             justify-content: center;
@@ -836,11 +980,13 @@
             backdrop-filter: blur(20px);
             border-radius: 20px;
             border: 1px solid var(--glass-border);
-            padding: 40px;
+            padding: 40px; /* Větší padding */
             text-align: center;
-            max-width: 700px;
-            width: 90%;
+            max-width: 900px; /* Větší max-width */
+            width: 95%;
             animation: resultSlide 0.5s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes resultSlide {
@@ -849,9 +995,9 @@
         }
 
         .result-title {
-            font-size: 2rem;
+            font-size: 2.5rem; /* Větší font */
             font-weight: 800;
-            margin-bottom: 30px;
+            margin-bottom: 25px; /* Větší margin */
             background: linear-gradient(135deg, var(--accent-gold), var(--warning));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -862,8 +1008,8 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin: 30px 0;
-            gap: 20px;
+            margin: 25px 0; /* Větší margin */
+            gap: 25px; /* Větší gap */
         }
 
         .result-player {
@@ -872,18 +1018,18 @@
         }
 
         .result-player-name {
-            font-size: 18px;
+            font-size: 20px; /* Větší font */
             font-weight: 600;
-            margin-bottom: 15px;
+            margin-bottom: 18px; /* Větší margin */
         }
 
         .result-card-mini {
-            width: 100px;
-            height: 130px;
-            border-radius: 8px;
+            width: 120px; /* Větší */
+            height: 150px; /* Větší */
+            border-radius: 10px; /* Větší border-radius */
             background-size: cover;
             background-position: center;
-            margin: 0 auto 10px;
+            margin: 0 auto 12px; /* Větší margin */
             border: 2px solid rgba(255, 255, 255, 0.3);
             position: relative;
             overflow: hidden;
@@ -901,10 +1047,10 @@
 
         .result-card-name {
             position: absolute;
-            bottom: 5px;
-            left: 5px;
-            right: 5px;
-            font-size: 10px;
+            bottom: 6px; /* Větší bottom */
+            left: 6px; /* Větší left */
+            right: 6px; /* Větší right */
+            font-size: 12px; /* Větší font */
             font-weight: 600;
             color: white;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
@@ -912,9 +1058,9 @@
         }
 
         .result-stats {
-            font-size: 13px;
-            margin: 10px 0;
-            line-height: 1.4;
+            font-size: 15px; /* Větší font */
+            margin: 12px 0; /* Větší margin */
+            line-height: 1.5; /* Větší line-height */
         }
 
         .result-damage {
@@ -928,37 +1074,91 @@
         }
 
         .result-vs {
-            font-size: 2rem;
+            font-size: 2.5rem; /* Větší font */
             font-weight: 900;
             color: var(--accent-gold);
             align-self: center;
         }
 
+        /* DETAILNÍ VYSVĚTLENÍ S VĚTŠÍMI TEXTY */
+        .result-explanation {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 25px; /* Větší padding */
+            border-radius: 15px; /* Větší border-radius */
+            margin: 25px 0; /* Větší margin */
+            text-align: left;
+        }
+
+        .result-explanation h3 {
+            color: var(--accent-gold);
+            font-size: 18px; /* Větší font */
+            margin-bottom: 15px; /* Větší margin */
+            text-align: center;
+        }
+
+        .advantage-list {
+            margin: 15px 0; /* Větší margin */
+        }
+
+        .advantage-item {
+            padding: 12px 16px; /* Větší padding */
+            margin: 8px 0; /* Větší margin */
+            border-radius: 10px; /* Větší border-radius */
+            font-size: 14px; /* Větší font */
+            line-height: 1.4; /* Větší line-height */
+        }
+
+        .advantage-counter {
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+        }
+
+        .advantage-boost {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--accent-purple);
+            color: var(--accent-purple);
+        }
+
+        .advantage-support {
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
         .result-summary {
             background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
-            font-size: 16px;
-            line-height: 1.5;
+            padding: 20px; /* Větší padding */
+            border-radius: 15px; /* Větší border-radius */
+            margin: 20px 0; /* Větší margin */
+            font-size: 16px; /* Větší font */
+            line-height: 1.6; /* Větší line-height */
         }
 
         .result-actions {
             display: flex;
             justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
+            gap: 15px; /* Větší gap */
+            margin-top: 25px; /* Větší margin */
+        }
+
+        .counter-indicator, .boost-indicator {
+            padding: 6px 12px; /* Větší padding */
+            border-radius: 6px; /* Větší border-radius */
+            font-size: 12px; /* Větší font */
+            font-weight: 700;
+            margin-top: 8px; /* Větší margin */
+            display: inline-block;
         }
 
         .counter-indicator {
             background: var(--accent-gold);
             color: black;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 700;
-            margin-top: 5px;
-            display: inline-block;
+        }
+
+        .boost-indicator {
+            background: var(--accent-purple);
+            color: white;
         }
 
         @keyframes cardDeal {
@@ -976,11 +1176,11 @@
             animation: cardDeal 0.5s ease-out;
         }
 
-        /* RESPONSIVE DESIGN */
+        /* RESPONZIVNÍ DESIGN */
         @media (max-width: 1200px) {
             .game-board {
-                grid-template-columns: 240px 1fr 240px;
-                gap: 12px;
+                grid-template-columns: 280px 1fr 280px;
+                gap: 15px;
             }
             
             :root {
@@ -989,50 +1189,65 @@
                 --support-card-width: 85px;
                 --support-card-height: 110px;
             }
+
+            .cards-container {
+                width: 250px;
+                height: 400px;
+            }
+
+            .cards-section {
+                width: 115px;
+                height: 380px;
+            }
         }
 
         @media (max-width: 1000px) {
             .game-board {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 15px;
                 overflow-y: auto;
             }
             
             .player-area {
                 height: auto;
-                max-height: 200px;
+                max-height: 220px;
                 order: 2;
             }
             
+            /* SKRYJ ENEMY KARTY NA MOBILECH */
             .player-area.enemy-area {
-                max-height: 120px;
+                display: none;
             }
             
             .cards-container {
+                width: 100%;
+                height: 200px;
                 flex-direction: row;
                 flex-wrap: wrap;
                 justify-content: center;
-                max-height: 180px;
                 overflow-y: auto;
-                gap: 6px;
+                gap: 8px;
                 display: flex;
             }
             
             .cards-section {
-                width: auto;
+                width: 45%;
+                height: 180px;
+                flex-shrink: 0;
+                min-width: 140px;
             }
             
             .battle-zone {
                 order: 1;
-                padding: 10px;
+                padding: 15px;
             }
             
             .battle-row {
-                gap: 15px;
+                gap: 20px;
             }
             
             .vs-indicator {
-                font-size: 16px;
+                font-size: 20px;
             }
             
             .game-actions {
@@ -1040,31 +1255,31 @@
                 position: sticky;
                 bottom: 0;
                 background: var(--bg-primary);
-                padding: 12px;
-                margin: 0 -15px;
+                padding: 15px;
+                margin: 0 -20px;
                 border-top: 1px solid var(--glass-border);
             }
         }
 
         @media (max-width: 600px) {
             .main-wrapper {
-                padding: 12px;
-                margin: 8px;
+                padding: 15px;
+                margin: 10px;
             }
             
             .main-wrapper.game-mode {
-                padding: 8px;
+                padding: 10px;
                 height: 98vh;
             }
             
             .app-title {
-                font-size: 2rem;
-                margin-bottom: 25px;
+                font-size: 2.5rem;
+                margin-bottom: 30px;
             }
             
             .lobby-code {
-                font-size: 2.2rem;
-                letter-spacing: 8px;
+                font-size: 3rem;
+                letter-spacing: 10px;
             }
             
             :root {
@@ -1076,47 +1291,44 @@
             
             .battle-row {
                 flex-direction: column;
-                gap: 10px;
+                gap: 15px;
             }
             
             .battle-labels {
                 flex-direction: column;
-                gap: 40px;
+                gap: 45px;
                 text-align: center;
             }
             
             .vs-indicator {
-                font-size: 14px;
+                font-size: 18px;
                 order: 2;
             }
             
             .hp-bar {
-                width: 100px;
-                height: 6px;
+                width: 120px;
+                height: 8px;
             }
             
             .game-header {
-                padding: 6px 12px;
+                padding: 8px 15px;
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
                 text-align: center;
             }
             
             .hp-display {
-                gap: 8px;
-            }
-            
-            .player-area.enemy-area {
-                max-height: 80px;
-            }
-            
-            .enemy-card {
-                width: 80px;
-                height: 100px;
+                gap: 10px;
             }
             
             .cards-container {
-                gap: 4px;
+                height: 180px;
+                gap: 6px;
+            }
+            
+            .cards-section {
+                height: 160px;
+                min-width: 120px;
             }
             
             .result-container {
@@ -1125,7 +1337,16 @@
             
             .result-cards {
                 flex-direction: column;
-                gap: 15px;
+                gap: 20px;
+            }
+            
+            .result-explanation {
+                padding: 20px;
+            }
+
+            .card-tooltip {
+                max-width: 300px;
+                padding: 15px;
             }
         }
     </style>
@@ -1176,13 +1397,13 @@
             <!-- Lobby -->
             <div class="screen" id="lobbyScreen">
                 <div class="lobby-code-display">
-                    <div style="font-size: 14px; color: var(--text-secondary); margin-bottom: 10px;">Kód lobby</div>
+                    <div style="font-size: 16px; color: var(--text-secondary); margin-bottom: 12px;">Kód lobby</div>
                     <div class="lobby-code" id="displayLobbyCode">----</div>
-                    <div style="font-size: 12px; color: var(--text-secondary); margin-top: 10px;">Sdílej tento kód s přáteli</div>
+                    <div style="font-size: 14px; color: var(--text-secondary); margin-top: 12px;">Sdílej tento kód s přáteli</div>
                 </div>
 
                 <div class="player-list">
-                    <h3 style="margin-bottom: 20px; color: var(--text-secondary);">Hráči</h3>
+                    <h3 style="margin-bottom: 25px; color: var(--text-secondary); font-size: 18px;">Hráči</h3>
                     <div id="playersList">
                         <div class="status-message warning show">Načítám...</div>
                     </div>
@@ -1206,26 +1427,26 @@
                     <div class="game-header">
                         <div class="hp-display">
                             <div>
-                                <div id="player1Name" style="font-weight: 600; margin-bottom: 4px; font-size: 13px;">Hráč 1</div>
+                                <div id="player1Name" style="font-weight: 600; margin-bottom: 6px; font-size: 15px;">Hráč 1</div>
                                 <div class="hp-bar">
                                     <div id="player1HP" class="hp-fill" style="width: 100%;"></div>
                                 </div>
-                                <div id="player1HPText" style="font-size: 10px; margin-top: 2px; color: var(--text-secondary);">100/100 HP</div>
+                                <div id="player1HPText" style="font-size: 12px; margin-top: 4px; color: var(--text-secondary);">100/100 HP</div>
                             </div>
                         </div>
                         
                         <div style="text-align: center;">
-                            <div id="roundInfo" style="font-size: 16px; font-weight: 700; color: var(--accent-gold);">KOLO 1</div>
-                            <div id="gameMessage" style="font-size: 12px; color: var(--text-secondary); margin-top: 3px;">Vyberte karty!</div>
+                            <div id="roundInfo" style="font-size: 18px; font-weight: 700; color: var(--accent-gold);">KOLO 1</div>
+                            <div id="gameMessage" style="font-size: 14px; color: var(--text-secondary); margin-top: 5px;">Vyberte karty!</div>
                         </div>
                         
                         <div class="hp-display">
                             <div>
-                                <div id="player2Name" style="font-weight: 600; margin-bottom: 4px; font-size: 13px;">Hráč 2</div>
+                                <div id="player2Name" style="font-weight: 600; margin-bottom: 6px; font-size: 15px;">Hráč 2</div>
                                 <div class="hp-bar">
                                     <div id="player2HP" class="hp-fill" style="width: 100%;"></div>
                                 </div>
-                                <div id="player2HPText" style="font-size: 10px; margin-top: 2px; color: var(--text-secondary);">100/100 HP</div>
+                                <div id="player2HPText" style="font-size: 12px; margin-top: 4px; color: var(--text-secondary);">100/100 HP</div>
                             </div>
                         </div>
                     </div>
@@ -1324,9 +1545,17 @@
             <div class="tooltip-ability-title">SPECIAL ABILITY</div>
             <div class="tooltip-ability-text" id="tooltipAbility">Ability description...</div>
         </div>
+        <div class="tooltip-boost" id="tooltipBoost" style="display: none;">
+            <div class="tooltip-boost-title">BOOST TARGET</div>
+            <div class="tooltip-boost-text" id="tooltipBoostText">Boost description...</div>
+        </div>
+        <div class="tooltip-counters" id="tooltipCounters" style="display: none;">
+            <div class="tooltip-counters-title">COUNTER SYSTEM</div>
+            <div id="tooltipCountersList"></div>
+        </div>
     </div>
 
-    <!-- Round Result Cutscene - bez auto hide -->
+    <!-- Round Result Overlay -->
     <div class="round-result-overlay" id="roundResultOverlay">
         <div class="result-container">
             <div class="result-title" id="resultTitle">VÝSLEDEK KOLA</div>
@@ -1344,6 +1573,7 @@
                         <div>Heal: <span class="result-heal" id="resultHeal1">0</span></div>
                     </div>
                     <div id="resultCounter1" class="counter-indicator" style="display: none;">COUNTER!</div>
+                    <div id="resultBoost1" class="boost-indicator" style="display: none;">BOOST!</div>
                 </div>
                 
                 <div class="result-vs">VS</div>
@@ -1360,6 +1590,15 @@
                         <div>Heal: <span class="result-heal" id="resultHeal2">0</span></div>
                     </div>
                     <div id="resultCounter2" class="counter-indicator" style="display: none;">COUNTER!</div>
+                    <div id="resultBoost2" class="boost-indicator" style="display: none;">BOOST!</div>
+                </div>
+            </div>
+            
+            <!-- DETAILNÍ ANALÝZA -->
+            <div class="result-explanation">
+                <h3>🔍 Detailní Analýza Kola</h3>
+                <div class="advantage-list" id="advantageList">
+                    <!-- Dynamicky naplněno JS -->
                 </div>
             </div>
             
@@ -1369,7 +1608,10 @@
             
             <div class="result-actions">
                 <button onclick="hideRoundResult()" class="btn btn-close">
-                    Zavřít
+                    Zavřít výsledky
+                </button>
+                <button onclick="nextRoundManual()" class="btn btn-primary" id="nextRoundBtn" style="display: none;">
+                    Další kolo
                 </button>
             </div>
         </div>
@@ -1388,7 +1630,6 @@
         let allAvailableCards = [];
         let amIPlayerOne = false;
         let gamblesLeft = 3;
-        let roundResultClosed = false;
 
         // TOOLTIP SYSTEM
         const tooltip = document.getElementById('cardTooltip');
@@ -1399,7 +1640,7 @@
             document.getElementById('tooltipName').textContent = card.name;
             document.getElementById('tooltipType').textContent = card.type || 'Unknown';
             
-            // Rozdílné zobrazení podle typu karty
+            // Stats display
             if (card.type === 'support') {
                 document.getElementById('tooltipDamage').style.display = 'none';
                 document.getElementById('tooltipHP').style.display = 'none';
@@ -1413,8 +1654,60 @@
                 document.getElementById('tooltipHP').textContent = `HP: ${card.hp}`;
             }
             
-            // OPRAVA: Použij innerHTML místo textContent pro description
-            document.getElementById('tooltipDesc').innerHTML = card.description || 'No description';
+            // BOOST INFO
+            const boostDiv = document.getElementById('tooltipBoost');
+            if (card.boost) {
+                const boostTargets = Array.isArray(card.boost) ? card.boost : [card.boost];
+                document.getElementById('tooltipBoostText').textContent = `+10 DMG proti kartám obsahujícím: ${boostTargets.join(', ')}`;
+                boostDiv.style.display = 'block';
+            } else {
+                boostDiv.style.display = 'none';
+            }
+
+            // NOVÁ COUNTER INFO OKNA
+            const countersDiv = document.getElementById('tooltipCounters');
+            const countersList = document.getElementById('tooltipCountersList');
+            
+            // Vymaž předchozí content
+            countersList.innerHTML = '';
+            
+            // Předpokládané counter data (muselo by se načítat ze serveru)
+            const COUNTERS = {
+                1: { counters: [3, 7], counteredBy: [2] },
+                2: { counters: [4, 6], counteredBy: [] },
+                3: { counters: [], counteredBy: [1] },
+                4: { counters: [], counteredBy: [2] }
+            };
+            
+            if (COUNTERS[card.id]) {
+                const cardCounters = COUNTERS[card.id];
+                let hasCounterInfo = false;
+                
+                if (cardCounters.counters && cardCounters.counters.length > 0) {
+                    const item = document.createElement('div');
+                    item.className = 'counter-item counting';
+                    item.innerHTML = `<strong>Counting:</strong> Má advantage proti kartám ${cardCounters.counters.join(', ')} (+15 damage)`;
+                    countersList.appendChild(item);
+                    hasCounterInfo = true;
+                }
+                
+                if (cardCounters.counteredBy && cardCounters.counteredBy.length > 0) {
+                    const item = document.createElement('div');
+                    item.className = 'counter-item countered';
+                    item.innerHTML = `<strong>Countered by:</strong> Karty ${cardCounters.counteredBy.join(', ')} mají proti ní advantage`;
+                    countersList.appendChild(item);
+                    hasCounterInfo = true;
+                }
+                
+                countersDiv.style.display = hasCounterInfo ? 'block' : 'none';
+            } else {
+                countersDiv.style.display = 'none';
+            }
+            
+            // Clean description (remove old counter info)
+            let cleanDescription = card.description || 'No description';
+            cleanDescription = cleanDescription.replace(/<span[^>]*>.*?<\/span>/gi, '').replace(/<br\s*\/?>/gi, ' ').trim();
+            document.getElementById('tooltipDesc').innerHTML = cleanDescription;
             document.getElementById('tooltipAbility').textContent = card.ability || 'No special ability';
             
             tooltip.classList.add('show');
@@ -1499,7 +1792,7 @@
                 cardEl.onclick = () => selectCard(cardEl, card);
             }
             
-            // Rozdílné statistiky podle typu karty
+            // Different stats based on card type
             let statsHTML = '';
             if (isSupport) {
                 const bonusDamage = card.bonusDamage || 0;
@@ -1537,36 +1830,36 @@
         }
 
         function selectCard(cardElement, card) {
-            const isSupport = card.type === 'support';
-            const slotId = isSupport ? 'mySupportSlot' : 'myMainSlot';
-            const currentSelectedId = isSupport ? selectedSupportCardId : selectedMainCardId;
-            
-            // Zkontroluj, jestli karta pasuje do slotu
-            if (!isSupport && card.type !== 'main') {
-                showStatus('Tuto kartu nelze použít jako hlavní!', 'error');
-                return;
-            }
-            if (isSupport && card.type !== 'support') {
-                showStatus('Tuto kartu nelze použít jako support!', 'error');
-                return;
-            }
-            
-            // Vrať předchozí kartu zpět do ruky pokud existuje
-            if (currentSelectedId) {
-                if (isSupport) {
-                    returnSupportCardToHand();
-                } else {
-                    returnMainCardToHand();
-                }
-            }
-
-            // Odeber výběr z ostatních karet stejného typu
-            const cardClass = isSupport ? '.support-card' : '.main-card';
-            document.querySelectorAll(cardClass).forEach(c => c.classList.remove('selected'));
-            cardElement.classList.add('selected');
-            
-            placeCardInSlot(cardElement, card, slotId, isSupport);
+    const isSupport = card.type === 'support';
+    const slotId = isSupport ? 'mySupportSlot' : 'myMainSlot';
+    const currentSelectedId = isSupport ? selectedSupportCardId : selectedMainCardId;
+    
+    // Check if card fits the slot
+    if (!isSupport && card.type !== 'main') {
+        showStatus('Tuto kartu nelze použít jako hlavní!', 'error');
+        return;
+    }
+    if (isSupport && card.type !== 'support') {
+        showStatus('Tuto kartu nelze použít jako support!', 'error');
+        return;
+    }
+    
+    // Return previous card to hand if exists
+    if (currentSelectedId) {
+        if (isSupport) {
+            returnSupportCardToHand();
+        } else {
+            returnMainCardToHand();
         }
+    }
+
+    // Remove selection from other cards of same type
+    const cardClass = isSupport ? '.support-card' : '.main-card';
+    document.querySelectorAll(cardClass).forEach(c => c.classList.remove('selected'));
+    cardElement.classList.add('selected');
+    
+    placeCardInSlot(cardElement, card, slotId, isSupport);
+}
 
         function placeCardInSlot(cardElement, card, slotId, isSupport) {
             const slot = document.getElementById(slotId);
@@ -1586,59 +1879,67 @@
             }
             
             socket.emit('selectCard', { cardId: card.id, isSupport });
-            
             updateReadyButton();
         }
 
         function unselectCard(slotCard, card, isSupport) {
-            const targetSection = isSupport ? 'supportCardsSection' : 'mainCardsSection';
-            const sectionContainer = document.getElementById(targetSection);
-            const handCard = createGameCard(card, true);
-            
-            sectionContainer.appendChild(handCard);
-            
-            const slotId = isSupport ? 'mySupportSlot' : 'myMainSlot';
-            const placeholder = isSupport ? 'Support' : 'Tvoje hlavní';
-            document.getElementById(slotId).innerHTML = `<div class="slot-placeholder">${placeholder}</div>`;
-            
-            if (isSupport) {
-                selectedSupportCardId = null;
-            } else {
-                selectedMainCardId = null;
-            }
-            
-            updateReadyButton();
-        }
+    const targetSection = isSupport ? 'supportCardsSection' : 'mainCardsSection';
+    const sectionContainer = document.getElementById(targetSection);
+    const handCard = createGameCard(card, true);
+    
+    sectionContainer.appendChild(handCard);
+    
+    const slotId = isSupport ? 'mySupportSlot' : 'myMainSlot';
+    const placeholder = isSupport ? 'Support' : 'Tvoje hlavní';
+    document.getElementById(slotId).innerHTML = `<div class="slot-placeholder">${placeholder}</div>`;
+    
+    if (isSupport) {
+        selectedSupportCardId = null;
+    } else {
+        selectedMainCardId = null;
+    }
+    
+    // DŮLEŽITÉ: Pošli serveru informaci o deselekci
+    socket.emit('unselectCard', { isSupport });
+    
+    updateReadyButton();
+}
 
-        function returnMainCardToHand() {
-            if (!selectedMainCardId) return;
-            
-            const originalCard = allAvailableCards.find(c => c.id === selectedMainCardId);
-            if (!originalCard) return;
-            
-            const mainSection = document.getElementById('mainCardsSection');
-            const cardElement = createGameCard(originalCard, true);
-            
-            mainSection.appendChild(cardElement);
-            
-            document.getElementById('myMainSlot').innerHTML = '<div class="slot-placeholder">Tvoje hlavní</div>';
-            selectedMainCardId = null;
-        }
+function returnMainCardToHand() {
+    if (!selectedMainCardId) return;
+    
+    const originalCard = allAvailableCards.find(c => c.id === selectedMainCardId);
+    if (!originalCard) return;
+    
+    const mainSection = document.getElementById('mainCardsSection');
+    const cardElement = createGameCard(originalCard, true);
+    
+    mainSection.appendChild(cardElement);
+    
+    document.getElementById('myMainSlot').innerHTML = '<div class="slot-placeholder">Tvoje hlavní</div>';
+    selectedMainCardId = null;
+    
+    // PŘIDÁNO: Pošli serveru informaci o deselekci
+    socket.emit('unselectCard', { isSupport: false });
+}
 
-        function returnSupportCardToHand() {
-            if (!selectedSupportCardId) return;
-            
-            const originalCard = allAvailableCards.find(c => c.id === selectedSupportCardId);
-            if (!originalCard) return;
-            
-            const supportSection = document.getElementById('supportCardsSection');
-            const cardElement = createGameCard(originalCard, true);
-            
-            supportSection.appendChild(cardElement);
-            
-            document.getElementById('mySupportSlot').innerHTML = '<div class="slot-placeholder">Support</div>';
-            selectedSupportCardId = null;
-        }
+function returnSupportCardToHand() {
+    if (!selectedSupportCardId) return;
+    
+    const originalCard = allAvailableCards.find(c => c.id === selectedSupportCardId);
+    if (!originalCard) return;
+    
+    const supportSection = document.getElementById('supportCardsSection');
+    const cardElement = createGameCard(originalCard, true);
+    
+    supportSection.appendChild(cardElement);
+    
+    document.getElementById('mySupportSlot').innerHTML = '<div class="slot-placeholder">Support</div>';
+    selectedSupportCardId = null;
+    
+    // PŘIDÁNO: Pošli serveru informaci o deselekci
+    socket.emit('unselectCard', { isSupport: true });
+}
 
         function updateReadyButton() {
             const readyBtn = document.getElementById('readyBtn');
@@ -1649,7 +1950,7 @@
             const gambleBtn = document.getElementById('gambleBtn');
             const gamblesLeftSpan = document.getElementById('gamblesLeft');
             
-            gambleBtn.disabled = gamblesLeft <= 0 || selectedMainCardId; // Disabled pokud má vybranou kartu
+            gambleBtn.disabled = gamblesLeft <= 0 || selectedMainCardId;
             gambleBtn.textContent = `🎲 Gamble (${gamblesLeft})`;
             
             if (gamblesLeftSpan) {
@@ -1749,8 +2050,20 @@
                 updateGambleButton();
             });
             
+            // OPRAVENO: Game update handler pro zobrazování vybraných karet
             socket.on('gameUpdate', (data) => {
                 currentGameState = data.gameState;
+                updateGameDisplay();
+            });
+            
+            socket.on('hpUpdate', (data) => {
+                const players = currentGameState.players;
+                const me = players.find(p => p.id === socket.id);
+                const enemy = players.find(p => p.id !== socket.id);
+                
+                me.hp = amIPlayerOne ? data.player1HP : data.player2HP;
+                enemy.hp = amIPlayerOne ? data.player2HP : data.player1HP;
+                
                 updateGameDisplay();
             });
             
@@ -1761,14 +2074,11 @@
             });
             
             socket.on('roundResult', (data) => {
-                roundResultClosed = false;
                 showRoundResult(data);
             });
             
+            // OPRAVENO: Žádné automatické next round
             socket.on('nextRound', (data) => {
-                if (!roundResultClosed) {
-                    hideRoundResult();
-                }
                 document.getElementById('roundInfo').textContent = `KOLO ${data.round}`;
                 document.getElementById('gameMessage').textContent = data.message;
                 selectedMainCardId = null;
@@ -1806,7 +2116,7 @@
             document.getElementById('resultCard1Name').textContent = data.player1.card.name;
             document.getElementById('resultCard2Name').textContent = data.player2.card.name;
             
-            // Opravené Stats - nový damage systém
+            // Stats
             document.getElementById('resultDamage1').textContent = data.player1.damageDealt;
             document.getElementById('resultCardDamage1').textContent = data.player1.cardDamageTaken;
             document.getElementById('resultPlayerDamage1').textContent = data.player1.playerDamageTaken;
@@ -1817,30 +2127,124 @@
             document.getElementById('resultPlayerDamage2').textContent = data.player2.playerDamageTaken;
             document.getElementById('resultHeal2').textContent = data.player2.healed;
             
-            // Counters
+            // Counters and Boosts
             document.getElementById('resultCounter1').style.display = data.counters?.player1Counter ? 'inline-block' : 'none';
             document.getElementById('resultCounter2').style.display = data.counters?.player2Counter ? 'inline-block' : 'none';
+            document.getElementById('resultBoost1').style.display = data.boosts?.player1Boost ? 'inline-block' : 'none';
+            document.getElementById('resultBoost2').style.display = data.boosts?.player2Boost ? 'inline-block' : 'none';
             
-            // Summary s novým systémem
+            // KOMPLETNÍ DETAILNÍ ANALÝZA
+            const advantageList = document.getElementById('advantageList');
+            advantageList.innerHTML = '';
+            
+            // Basic card info
+            const basicInfo = document.createElement('div');
+            basicInfo.className = 'advantage-item';
+            basicInfo.style.background = 'rgba(0, 212, 255, 0.1)';
+            basicInfo.style.border = '1px solid var(--accent-blue)';
+            basicInfo.style.color = 'white';
+            basicInfo.innerHTML = `
+                <strong>📋 Základní hodnoty:</strong><br>
+                ${data.player1.name}: ${data.player1.card.name} (${data.player1.card.damage} DMG, ${data.player1.card.hp} HP)<br>
+                ${data.player2.name}: ${data.player2.card.name} (${data.player2.card.damage} DMG, ${data.player2.card.hp} HP)
+            `;
+            advantageList.appendChild(basicInfo);
+            
+            // Counters
+            if (data.counters?.player1Counter && data.counters?.counterReason1) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-counter';
+                item.innerHTML = `<strong>⚔️ COUNTER:</strong> ${data.counters.counterReason1} <span style="color: var(--accent-gold);">(+15 damage)</span>`;
+                advantageList.appendChild(item);
+            }
+            if (data.counters?.player2Counter && data.counters?.counterReason2) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-counter';
+                item.innerHTML = `<strong>⚔️ COUNTER:</strong> ${data.counters.counterReason2} <span style="color: var(--accent-gold);">(+15 damage)</span>`;
+                advantageList.appendChild(item);
+            }
+            
+            // Boosts
+            if (data.boosts?.player1Boost && data.boosts?.boostReason1) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-boost';
+                item.innerHTML = `<strong>🚀 BOOST:</strong> ${data.boosts.boostReason1} <span style="color: var(--accent-purple);">(+10 damage)</span>`;
+                advantageList.appendChild(item);
+            }
+            if (data.boosts?.player2Boost && data.boosts?.boostReason2) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-boost';
+                item.innerHTML = `<strong>🚀 BOOST:</strong> ${data.boosts.boostReason2} <span style="color: var(--accent-purple);">(+10 damage)</span>`;
+                advantageList.appendChild(item);
+            }
+            
+            // Support bonuses
+            if (data.player1.support) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-support';
+                const bonuses = [];
+                if (data.player1.support.bonusDamage > 0) bonuses.push(`+${data.player1.support.bonusDamage} damage`);
+                if (data.player1.support.bonusHeal > 0) bonuses.push(`+${data.player1.support.bonusHeal} heal`);
+                item.innerHTML = `<strong>💎 SUPPORT:</strong> ${data.player1.name} použil "${data.player1.support.name}" <span style="color: var(--accent-orange);">(${bonuses.join(', ')})</span>`;
+                advantageList.appendChild(item);
+            }
+            if (data.player2.support) {
+                const item = document.createElement('div');
+                item.className = 'advantage-item advantage-support';
+                const bonuses = [];
+                if (data.player2.support.bonusDamage > 0) bonuses.push(`+${data.player2.support.bonusDamage} damage`);
+                if (data.player2.support.bonusHeal > 0) bonuses.push(`+${data.player2.support.bonusHeal} heal`);
+                item.innerHTML = `<strong>💎 SUPPORT:</strong> ${data.player2.name} použil "${data.player2.support.name}" <span style="color: var(--accent-orange);">(${bonuses.join(', ')})</span>`;
+                advantageList.appendChild(item);
+            }
+            
+            // Final damage breakdown
+            const damageResult = document.createElement('div');
+            damageResult.className = 'advantage-item';
+            damageResult.style.background = 'rgba(239, 68, 68, 0.1)';
+            damageResult.style.border = '1px solid var(--error)';
+            damageResult.style.color = 'white';
+            damageResult.innerHTML = `
+                <strong>🎯 Finální damage:</strong><br>
+                ${data.player1.name}: ${data.player1.damageDealt} celkový damage (${data.player1.cardDamageTaken} do karty, ${data.player1.playerDamageTaken} do hráče)<br>
+                ${data.player2.name}: ${data.player2.damageDealt} celkový damage (${data.player2.cardDamageTaken} do karty, ${data.player2.playerDamageTaken} do hráče)
+            `;
+            advantageList.appendChild(damageResult);
+            
+            // Healing if exists
+            if (data.player1.healed > 0 || data.player2.healed > 0) {
+                const healingResult = document.createElement('div');
+                healingResult.className = 'advantage-item';
+                healingResult.style.background = 'rgba(16, 185, 129, 0.1)';
+                healingResult.style.border = '1px solid var(--success)';
+                healingResult.style.color = 'white';
+                healingResult.innerHTML = `
+                    <strong>❤️ Healing:</strong><br>
+                    ${data.player1.name}: +${data.player1.healed} HP<br>
+                    ${data.player2.name}: +${data.player2.healed} HP
+                `;
+                advantageList.appendChild(healingResult);
+            }
+
+            // Show "Next Round" button if game didn't end
+            const nextBtn = document.getElementById('nextRoundBtn');
+            if (!data.gameOver && nextBtn) {
+                nextBtn.style.display = 'inline-flex';
+            }
+            
+            // Summary
             let summary = '';
             if (data.roundWinner) {
-                summary = `${data.roundWinner.name} vyhrává toto kolo!`;
+                summary = `🏆 ${data.roundWinner.name} vyhrává toto kolo! `;
             } else {
-                summary = 'Remíza! Oba hráči udělili stejný damage.';
+                summary = '🤝 Remíza! Oba hráči udělali stejný celkový damage. ';
             }
             
-            summary += ` Karty absorbovaly damage a zbytek přešel na hráče.`;
-            
-            if (data.counters?.player1Counter) {
-                summary += ` ${data.player1.name} měl counter advantage!`;
-            }
-            if (data.counters?.player2Counter) {
-                summary += ` ${data.player2.name} měl counter advantage!`;
-            }
+            summary += `Každá karta nejdřív pohlcovala damage svým HP, pak zbylý damage přešel na hráče.`;
             
             if (data.gameOver) {
                 if (data.gameWinner && data.gameWinner !== 'tie') {
-                    summary += ` 🏆 ${data.gameWinner.name} vyhrává celou hru!`;
+                    summary += ` 🎊 ${data.gameWinner.name} vyhrává celou hru!`;
                 } else {
                     summary += ' 🤝 Hra skončila remízou!';
                 }
@@ -1849,13 +2253,17 @@
             document.getElementById('resultSummary').textContent = summary;
             
             overlay.classList.add('show');
-            
-            // ODSTRANĚNO AUTO HIDE - pouze manuální zavírání
         }
 
         function hideRoundResult() {
-            roundResultClosed = true;
             document.getElementById('roundResultOverlay').classList.remove('show');
+        }
+
+        function nextRoundManual() {
+            if (socket && currentGameState) {
+                socket.emit('requestNextRound');
+                hideRoundResult();
+            }
         }
 
         // DISPLAY FUNCTIONS
@@ -1878,7 +2286,7 @@
                 }
             });
             
-            // Enemy cards (2 main + 2 support)
+            // Enemy cards (2 main + 2 support) - hidden on mobile
             const enemyContainer = document.getElementById('enemyCards');
             enemyContainer.innerHTML = `
                 <div class="cards-section">
@@ -1933,13 +2341,56 @@
             updateHPBar('player1HP', 'player1HPText', amIPlayerOne ? me.hp : enemy.hp);
             updateHPBar('player2HP', 'player2HPText', amIPlayerOne ? enemy.hp : me.hp);
             
-            // Show enemy selected cards if available
-            if (enemy.selectedCard && !enemy.selectedCard.hidden) {
-                showEnemySelectedCard(enemy.selectedCard, false);
+            // VRÁCENO K PŮVODNÍ LOGICE S PŮVODNÍM FORMÁTEM
+            if (enemy.selectedCard) {
+                if (enemy.selectedCard.hidden) {
+                    // Protivník má vybranou main kartu - zobraz ✓
+                    showEnemyHiddenCard(false);
+                } else {
+                    // Ukázat skutečnou kartu (během cutscene)
+                    showEnemySelectedCard(enemy.selectedCard, false);
+                }
+            } else {
+                // Protivník nemá vybranou main kartu - zobraz placeholder
+                document.getElementById('enemyMainSlot').innerHTML = '<div class="slot-placeholder">Enemy hlavní</div>';
             }
-            if (enemy.selectedSupport && !enemy.selectedSupport.hidden) {
-                showEnemySelectedCard(enemy.selectedSupport, true);
+            
+            if (enemy.selectedSupport) {
+                if (enemy.selectedSupport.hidden) {
+                    // Protivník má vybranou support kartu - zobraz ✓
+                    showEnemyHiddenCard(true);
+                } else {
+                    // Ukázat skutečnou support kartu (během cutscene)
+                    showEnemySelectedCard(enemy.selectedSupport, true);
+                }
+            } else {
+                // Protivník nemá vybranou support kartu - zobraz placeholder
+                document.getElementById('enemySupportSlot').innerHTML = '<div class="slot-placeholder">Enemy support</div>';
             }
+        }
+
+        function showEnemyHiddenCard(isSupport) {
+            const slotId = isSupport ? 'enemySupportSlot' : 'enemyMainSlot';
+            const slot = document.getElementById(slotId);
+            
+            const hiddenCard = document.createElement('div');
+            hiddenCard.className = `enemy-card ${isSupport ? 'support-card' : ''} selected`;
+            hiddenCard.innerHTML = '<div class="enemy-card-icon">✓</div>';
+            hiddenCard.style.borderColor = 'var(--accent-gold)';
+            hiddenCard.style.background = 'rgba(255, 215, 0, 0.1)';
+            hiddenCard.style.boxShadow = '0 0 20px rgba(255, 215, 0, 0.3)';
+            
+            slot.innerHTML = '';
+            slot.appendChild(hiddenCard);
+        }
+
+        function showEnemySelectedCard(card, isSupport) {
+            const slotId = isSupport ? 'enemySupportSlot' : 'enemyMainSlot';
+            const slot = document.getElementById(slotId);
+            const cardEl = createGameCard(card, false);
+            
+            slot.innerHTML = '';
+            slot.appendChild(cardEl);
         }
 
         function updateHPBar(fillId, textId, hp) {
@@ -1957,15 +2408,6 @@
             } else {
                 fill.style.background = 'linear-gradient(90deg, var(--error), #dc2626)';
             }
-        }
-
-        function showEnemySelectedCard(card, isSupport) {
-            const slotId = isSupport ? 'enemySupportSlot' : 'enemyMainSlot';
-            const slot = document.getElementById(slotId);
-            const cardEl = createGameCard(card, false);
-            
-            slot.innerHTML = '';
-            slot.appendChild(cardEl);
         }
 
         function updateLobbyDisplay() {
